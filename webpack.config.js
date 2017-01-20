@@ -5,10 +5,8 @@ const pkg = require('./package.json');
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
-const useHMR = !!global.HMR; // Hot Module Replacement (HMR)
 const babelConfig = Object.assign({}, pkg.babel, {
-  babelrc: false,
-  cacheDirectory: useHMR,
+  babelrc: false
 });
 
 const config = {
@@ -71,7 +69,7 @@ const config = {
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js?$/,
         loader: `babel-loader?${JSON.stringify(babelConfig)}`,
       }
     ],
@@ -86,7 +84,7 @@ if (!isDebug) {
 }
 
 // dev
-if (isDebug && useHMR) {
+if (isDebug) {
   config.plugins.push(new webpack.NoErrorsPlugin());
 }
 
