@@ -6,7 +6,8 @@ const pkg = require('./package.json');
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
 const babelConfig = Object.assign({}, pkg.babel, {
-  babelrc: false
+  babelrc: false,
+  cacheDirectory: true,
 });
 
 const config = {
