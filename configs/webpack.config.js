@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
-const pkg = require('./package.json');
+const pkg = require('../package.json');
 
 const isDebug = global.DEBUG === false ? false : !process.argv.includes('--release');
 const isVerbose = process.argv.includes('--verbose') || process.argv.includes('-v');
@@ -17,7 +17,7 @@ const config = {
   // The entry point for the bundle
   entry: [
     /* The main entry point of your JavaScript application */
-    './src/app.js',
+    '../src/app.js',
   ],
 
   // Options affecting the output of the compilation

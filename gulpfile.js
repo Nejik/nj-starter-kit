@@ -6,9 +6,7 @@ const gulpIf = require('gulp-if');
 const bs = require('browser-sync').create();
 let serverStarted = false;
 const webpack = require('webpack');
-const webpackConfig = require('./webpack.config');
-
-
+const webpackConfig = require('./configs/webpack.config.js');
 
 const paths = {
 
