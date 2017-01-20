@@ -11,7 +11,6 @@ const babelConfig = Object.assign({}, pkg.babel, {
 });
 
 const config = {
-
   // The base directory for resolving the entry option
   context: __dirname,
 
