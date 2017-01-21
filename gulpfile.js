@@ -1,17 +1,19 @@
+const config = require('./configs/project.config.js');
+const webpackConfig = require('./configs/webpack.config.js');
+
 const del = require('del');
 const path = require('path')
 const gulp = require('gulp');
 const gulpIf = require('gulp-if');
 
-const bs = require('browser-sync').create();
 let serverStarted = false;
+const bs = require('browser-sync').create();
 const webpack = require('webpack');
-const webpackConfig = require('./configs/webpack.config.js');
 
 
 
 gulp.task('clean', function () {
-  return del(['dist'])
+  return del([config.src])
 })
 
 gulp.task('watch', function () {
@@ -32,20 +34,19 @@ gulp.task('serve', function (cb) {
   });
 
   compiler.plugin('done', stats => {
-    console.log('done')
-
     if (serverStarted) {
       bs.reload()
     } else {
       serverStarted = true;
       gulp.src('./src/index.html')
-        .pipe(gulp.dest('./public/'))
+        .pipe(gulp.dest(config.dist))
 
       bs.init({
+        open: false,
         port: process.env.PORT || 3000,
         ui: { port: Number(process.env.PORT || 3000) + 1 },
         server: {
-          baseDir: 'public',
+          baseDir: config.dist,
           middleware: [
             webpackDevMiddleware,
             require('connect-history-api-fallback')(),

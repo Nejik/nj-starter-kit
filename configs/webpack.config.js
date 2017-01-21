@@ -28,7 +28,7 @@ const webpackConfig = {
   output: {
     path: config.dist,
     publicPath: config.publicPath,
-    filename: config.isDevelopment ? '[name].js?[hash]' : '[name].[hash].js',
+    filename: config.isDevelopment ? 'bundle.js?[hash]' : 'bundle.[hash].js',
     chunkFilename: config.isDevelopment ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
     sourcePrefix: '  ',
   },
