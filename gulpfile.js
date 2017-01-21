@@ -8,7 +8,7 @@ let serverStarted = false;
 const webpack = require('webpack');
 const webpackConfig = require('./configs/webpack.config.js');
 
-// const projectConfig = require('./configs/project.config.js');
+
 
 gulp.task('clean', function () {
   return del(['dist'])
