@@ -1,0 +1,14 @@
+.btn {
+  display: inline-block;
+
+  &--block {
+    display: block;
+    width: 100%;
+  }
+}
+.btn:hover, .btn:focus {
+  
+}
+.btn:active, .btnActive {
+  
+}

@@ -1,0 +1,5 @@
+/*variables can be defined only in :root*/
+:root {
+  --color-blue: #0094e2;
+  --color-black: #272727;
+}
