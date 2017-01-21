@@ -8,12 +8,10 @@ let serverStarted = false;
 const webpack = require('webpack');
 const webpackConfig = require('./configs/webpack.config.js');
 
-const paths = {
-
-}
+// const projectConfig = require('./configs/project.config.js');
 
 gulp.task('clean', function () {
-  return del(['public'])
+  return del(['dist'])
 })
 
 gulp.task('watch', function () {
