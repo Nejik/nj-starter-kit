@@ -43,6 +43,7 @@ Temporary Items
 .apdisk
 
 npm-debug.log
+debug.log
 .sass-cache
 .sublime-workspace
 .git
