@@ -32,13 +32,18 @@ gulp.task('styles', function () {
               .pipe(postcss(postcssConfig))
               .pipe(gulpIf(config.isDevelopment, sourcemaps.write()))
               .pipe(gulp.dest('dist'))
+              .pipe(gulpIf(config.isDevelopment, bs.stream()))
+})
+gulp.task('reload', function (cb) {
+  console.log('reload')
+  cb();
 })
 
 gulp.task('watch', function () {
   // gulp.watch(paths.html.watch, gulp.series('html'));
   // gulp.watch(paths.html.watch_partials, gulp.series('html_partials'));
 
-  // gulp.watch(paths.css.watch, gulp.series('css')); 
+  gulp.watch('src/**/*.css', gulp.series('styles')); 
   // gulp.watch(paths.jsVendor.watch, gulp.series('js:vendor')); //js bundled by webpack and webpack has own watcher, but vendors concataneted by gulp
   // gulp.watch(paths.images.watch, gulp.series('images'));
 })
@@ -88,4 +93,4 @@ gulp.task('serve', function (cb) {
 
 
 
-gulp.task('default', gulp.series('serve'))
+gulp.task('default', gulp.parallel('serve','watch'))

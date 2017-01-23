@@ -2,7 +2,7 @@
 /* @import 'vendor\jquery.bxslider.css'; */
 /* @import 'vendor\lightbox.css'; */
 
-@import 'vendor/vendor.css';/*in vendors we write our custom styles for vendor plugins*/
+@import 'vendor/vendor.css';/*in vendor.css we write our custom styles for vendor plugins*/
 
 /* import here all default/reset styles */
 @import 'normalize-css'; /*this css imported from node_modules*/
