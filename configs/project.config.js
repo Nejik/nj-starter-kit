@@ -2,6 +2,7 @@ const argv = require('yargs').argv;
 const root = require('app-root-path');
 
 const src = root.resolve('src')
+const components = root.resolve('src/components')
 const css = root.resolve('src/css')
 const img = root.resolve('src/img')
 const fonts = root.resolve('src/fonts')
@@ -14,6 +15,7 @@ const isDevelopment = argv.env !== "production";
 let paths = {
   root: root.toString(),
   src: src,
+  components: components,
   css: css,
   img: img,
   vendor: vendor,

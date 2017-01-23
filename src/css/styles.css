@@ -2,6 +2,8 @@
 /* @import 'vendor\jquery.bxslider.css'; */
 /* @import 'vendor\lightbox.css'; */
 
+@import 'vendor/vendor.css';/*in vendors we write our custom styles for vendor plugins*/
+
 /* import here all default/reset styles */
 @import 'normalize-css'; /*this css imported from node_modules*/
 
@@ -22,16 +24,14 @@
 
 
 /* import all css from components here */
-@import 'components/header/header.css';
+
+/*@import 'components/header/header.css';
 @import 'components/footer/footer.css';
-
-/* import component styles here */
-
-/* @import 'components\index.css'; */
+@import 'pages\index.css'; */
 
 
 
 
-@import 'vendor/vendors.css';/*in vendors we write our custom styles for vendor plugins*/
+
 /* import styles from backend developers, if they want to change something globally */
-@import 'backend.css';
+@import 'common/backend.css';

@@ -1,23 +1,25 @@
-const cssReporter = require('postcss-reporter');
+const config = require('./project.config');
+
+// const cssReporter = require('postcss-reporter');
 const cssImport = require('postcss-import');
 const cssNext = require('postcss-cssnext');
-const cssNano = require('cssnano');
+// const cssNano = require('cssnano');
 const cssMqPacker = require('css-mqpacker');
 const cssInlineSvg = require('postcss-inline-svg');
 
-const projectConfig = require('../config/project.config');
 
-module.exports = (webpack) => [
+module.exports = [
   cssImport({
-    addDependencyTo: webpack,
-    root: projectConfig.srcDir,
+    root: config.root,
     // node_modules exists in resolve paths by default and we don't need to place it here
     path: [
-      projectConfig.cssDir
+      config.components,//to import component styles, e.g. header/header.css
+      config.src,
+      config.css
     ]
   }),
   cssNext,
-  cssInlineSvg({path: projectConfig.srcDir}),
+  cssInlineSvg({path: config.src}),
   cssMqPacker({
     sort: true
   }),
