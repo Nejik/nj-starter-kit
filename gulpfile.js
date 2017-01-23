@@ -34,10 +34,6 @@ gulp.task('styles', function () {
               .pipe(gulp.dest('dist'))
               .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
-gulp.task('reload', function (cb) {
-  console.log('reload')
-  cb();
-})
 
 gulp.task('watch', function () {
   // gulp.watch(paths.html.watch, gulp.series('html'));
