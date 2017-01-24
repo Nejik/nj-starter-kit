@@ -13,9 +13,11 @@ const isVerbose = argv.verbose;
 const isDevelopment = argv.env !== "production";
 
 let paths = {
+  src: src,
   dist: dist,
   publicPath: '/',
   root: root.toString(),
+  vendor: vendor,
 
   components: components,
 
@@ -31,9 +33,7 @@ let paths = {
     dist: dist,
     watch: [root.resolve('src/**/*.css')]
   },
-  src: src,
   img: img,
-  vendor: vendor,
 
   isVerbose: isVerbose,
   isDevelopment: isDevelopment

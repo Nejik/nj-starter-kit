@@ -11,7 +11,6 @@
 @import 'common/_custom_normalize.css';
 @import 'common/_variables.css';
 
-
 /* import project specific css */
 @import 'common/buttons.css';
 @import 'common/forms.css';
