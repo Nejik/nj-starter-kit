@@ -15,7 +15,7 @@ module.exports = [
     path: [
       config.components,//to import component styles, e.g. header/header.css
       config.src,
-      config.css
+      config.css.dir
     ]
   }),
   cssNext,

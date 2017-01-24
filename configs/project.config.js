@@ -3,7 +3,7 @@ const root = require('app-root-path');
 
 const src = root.resolve('src')
 const components = root.resolve('src/components')
-const css = root.resolve('src/css')
+const cssDir = root.resolve('src/css')
 const img = root.resolve('src/img')
 const fonts = root.resolve('src/fonts')
 const vendor = root.resolve('src/vendor')
@@ -15,22 +15,29 @@ const isDevelopment = argv.env !== "production";
 let paths = {
   dist: dist,
   publicPath: '/',
+  root: root.toString(),
+
+  components: components,
 
   html: {
     src: root.resolve('src/index.html'),
     dist: dist,
     watch: [root.resolve('src/**/*.html')]
   },
-  root: root.toString(),
+
+  css: {
+    dir: cssDir,
+    src: [root.resolve('src/css/styles.css')],
+    dist: dist,
+    watch: [root.resolve('src/**/*.css')]
+  },
   src: src,
-  components: components,
-  css: css,
   img: img,
   vendor: vendor,
 
   isVerbose: isVerbose,
   isDevelopment: isDevelopment
 }
-console.log(paths.html)
+console.log(paths.css)
 
 module.exports = paths;
