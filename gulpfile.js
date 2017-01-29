@@ -30,12 +30,11 @@ gulp.task('clean', function () {
   return del([config.dist])
 })
 
-gulp.task('html', function () {
-  let data = {};
-  let options = {};
-
-  return gulp.src(config.html.src)
-            .pipe(through.obj(function (file, enc, cb) {
+function gulpEjs(data, options) {
+  data = data || {};
+  options = options || {};
+  
+  return through.obj(function (file, enc, cb) {
               if (file.isNull()) {
                   this.push(file);
                   return cb();
@@ -49,14 +48,13 @@ gulp.task('html', function () {
               }
 
               data = assign({}, data, file.data);
-              data.filename = file.path;
+              
+              options = assign({}, options)
+              options.filename = file.path;
               
               try {
                 file.contents = new Buffer(
-                    ejs.render(file.contents.toString(), data, {
-                      root: config.src,
-                      filename: data.filename
-                    })
+                    ejs.render(file.contents.toString(), data, options)
                 );
                 
                 //change extension from ejs to html
@@ -69,10 +67,19 @@ gulp.task('html', function () {
               this.push(file);
 
               cb();
-            }))
-            .on('error', gutil.log)
+            })
+}
+gulp.task('html', function () {
+  return gulp.src(config.html.src)
+            .pipe(gulpEjs({//data
+              
+            }, {//options
+              root: config.src
+            })).on('error', gutil.log)
             .pipe(gulp.dest(config.html.dist));
 })
+
+
 
 gulp.task('css', function () {
   return gulp .src(config.css.src)
