@@ -22,9 +22,9 @@ let paths = {
   components: components,
 
   html: {
-    src: root.resolve('src/index.html'),
+    src: [root.resolve('src/*.ejs'), root.resolve('src/pages/*.ejs')],
     dist: dist,
-    watch: [root.resolve('src/**/*.html')]
+    watch: [root.resolve('src/**/*.ejs')]
   },
 
   css: {
@@ -38,6 +38,5 @@ let paths = {
   isVerbose: isVerbose,
   isDevelopment: isDevelopment
 }
-console.log(paths.css)
 
 module.exports = paths;

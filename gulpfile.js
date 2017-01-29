@@ -7,8 +7,11 @@ const del = require('del');
 const path = require('path')
 const gulp = require('gulp');
 const gulpIf = require('gulp-if');
+const gutil = require('gulp-util');
 const sourcemaps = require('gulp-sourcemaps');
 
+//html
+const ejs = require("gulp-ejs");
 
 //styles
 const postcss = require('gulp-postcss');
@@ -22,13 +25,23 @@ const bs = require('browser-sync').create();
 
 
 gulp.task('clean', function () {
-  return del([config.src])
+  return del([config.dist])
 })
 
 gulp.task('html', function () {
-  return gulp .src(config.html.src)
-              .pipe(gulp.dest(config.html.dist))
+  return gulp.src(config.html.src)
+              .pipe(ejs({
+                name: 'Dmitry',
+              },
+              {
+                root: config.src
+              },
+              {
+                ext: '.html'
+              })).on('error', gutil.log)
+              .pipe(gulp.dest(config.html.dist));
 })
+gulp.task('htmlc', gulp.series('clean','html'))
 
 gulp.task('css', function () {
   return gulp .src(config.css.src)
