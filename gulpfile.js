@@ -76,7 +76,8 @@ gulp.task('html', function () {
             }, {//options
               root: config.src
             })).on('error', gutil.log)
-            .pipe(gulp.dest(config.html.dist));
+            .pipe(gulp.dest(config.html.dist))
+            .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
 
 
@@ -97,9 +98,9 @@ gulp.task('webpack', function (gulpCallback) {
 })
 
 gulp.task('watch', function () {
-  // gulp.watch(paths.html.watch, gulp.series('html'));
   // gulp.watch(paths.html.watch_partials, gulp.series('html_partials'));
 
+  gulp.watch(config.html.watch, gulp.series('html'));
   gulp.watch(config.css.watch, gulp.series('css'));
   // gulp.watch(paths.jsVendor.watch, gulp.series('js:vendor')); //js bundled by webpack and webpack has own watcher, but vendors concataneted by gulp
   // gulp.watch(paths.images.watch, gulp.series('images'));
@@ -146,6 +147,8 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
 
 
 
-gulp.task('build', gulp.parallel('html','css'))
+gulp.task('build', gulp.parallel('html','css','webpack'))
+gulp.task('prod', gulp.series('clean', gulp.parallel('html','css','webpack')))
+
 
 gulp.task('default', gulp.series('build', gulp.parallel('serve','watch')))
