@@ -98,12 +98,8 @@ gulp.task('webpack', function (gulpCallback) {
 })
 
 gulp.task('watch', function () {
-  // gulp.watch(paths.html.watch_partials, gulp.series('html_partials'));
-
   gulp.watch(config.html.watch, gulp.series('html'));
   gulp.watch(config.css.watch, gulp.series('css'));
-  // gulp.watch(paths.jsVendor.watch, gulp.series('js:vendor')); //js bundled by webpack and webpack has own watcher, but vendors concataneted by gulp
-  // gulp.watch(paths.images.watch, gulp.series('images'));
 })
 
 gulp.task('serve', function (cb) {//serve contains js task, because of webpack integration
