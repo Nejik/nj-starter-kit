@@ -11,7 +11,9 @@ const gutil = require('gulp-util');
 const sourcemaps = require('gulp-sourcemaps');
 
 //html
-const ejs = require("gulp-ejs");
+const through = require('through2');
+const ejs = require('ejs');
+const assign = require('object-assign');
 
 //styles
 const postcss = require('gulp-postcss');
@@ -29,19 +31,48 @@ gulp.task('clean', function () {
 })
 
 gulp.task('html', function () {
+  let data = {};
+  let options = {};
+
   return gulp.src(config.html.src)
-              .pipe(ejs({
-                name: 'Dmitry',
-              },
-              {
-                root: config.src
-              },
-              {
-                ext: '.html'
-              })).on('error', gutil.log)
-              .pipe(gulp.dest(config.html.dist));
+            .pipe(through.obj(function (file, enc, cb) {
+              if (file.isNull()) {
+                  this.push(file);
+                  return cb();
+              }
+            
+              if (file.isStream()) {
+                  this.emit(
+                      'error',
+                      new gutil.PluginError('gulp-ejs', 'Streaming not supported')
+                  );
+              }
+
+              data = assign({}, data, file.data);
+              data.filename = file.path;
+              
+              try {
+                file.contents = new Buffer(
+                    ejs.render(file.contents.toString(), data, {
+                      root: config.src,
+                      filename: data.filename
+                    })
+                );
+                
+                //change extension from ejs to html
+                file.path = gutil.replaceExtension(file.path, '.html');
+                  
+              } catch (err) {
+                  this.emit('error', new gutil.PluginError('gulp-ejs', err.toString()));
+              }
+            
+              this.push(file);
+
+              cb();
+            }))
+            .on('error', gutil.log)
+            .pipe(gulp.dest(config.html.dist));
 })
-gulp.task('htmlc', gulp.series('clean','html'))
 
 gulp.task('css', function () {
   return gulp .src(config.css.src)
