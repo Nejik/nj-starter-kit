@@ -35,11 +35,16 @@ let paths = {
     dist: root.resolve('dist/img'),
     watch: root.resolve('src/img/**/*.{jpg,jpeg,png,svg,gif,webp}')
   },
-  imgSprites: {
+  svgSprites: {
     src: 'src/img/sprites/svg/**/*.svg',
     concat: 'icons.svg',
     dist: root.resolve('dist/img'),
-    distCopy: root.resolve('dist/img/sprites/svg')
+    // distCopy: root.resolve('dist/img/sprites/svg')
+  },
+  svgColoredSprites: {
+    src: 'src/img/sprites/svgColored/**/*.svg',
+    concat: 'iconsColored.svg',
+    dist: root.resolve('dist/img'),
   },
 
   isVerbose: isVerbose,

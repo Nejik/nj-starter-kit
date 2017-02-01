@@ -107,15 +107,16 @@ gulp.task('webpack', function (gulpCallback) {
 })
 
 gulp.task('images:svg', function () {
-  return gulp .src(config.imgSprites.src)
+  return gulp .src(config.svgSprites.src)
               .pipe(plumber({errorHandler: function (error) {
                 console.log(error)
                 this.emit('end');
               }}))
               .pipe(svgSprite({    
                     mode : {
+                        inline:true,
                         symbol: {
-                          sprite: config.imgSprites.concat,
+                          sprite: config.svgSprites.concat,
                           dest: ''
                         }
                     },
@@ -125,7 +126,6 @@ gulp.task('images:svg', function () {
                               plugins : [
                                   {removeStyleElement: true},
                                   {removeAttrs: {attrs: '(stroke|fill)'}}
-                                  // {convertStyleToAttrs:true}
                               ]
                             }}
                         ]
@@ -135,8 +135,43 @@ gulp.task('images:svg', function () {
                       doctypeDeclaration: false // don't include the !DOCTYPE declaration
                     }
                   }))
-              .pipe(gulp.dest(config.imgSprites.dist))
-              .pipe(gulp.dest(config.imgSprites.distCopy))
+              .pipe(gulp.dest(config.svgSprites.dist))
+              // .pipe(gulp.dest(config.svgSprites.distCopy))
+})
+
+//todo
+// now svg shouldn't be styled via style tag, use style attribute instead to save colors in sprite
+//waiting for this PR https://github.com/svg/svgo/pull/592 , it removes limitation above
+gulp.task('images:svgColored', function () {
+  return gulp .src(config.svgColoredSprites.src)
+              .pipe(plumber({errorHandler: function (error) {
+                console.log(error)
+                this.emit('end');
+              }}))
+              .pipe(svgSprite({    
+                    mode : {
+                        inline:true,
+                        symbol: {
+                          sprite: config.svgColoredSprites.concat,
+                          dest: ''
+                        }
+                    },
+                    shape               : {
+                        transform       : [
+                            {svgo       : {
+                              plugins : [
+                                  
+                              ]
+                            }}
+                        ]
+                    },
+                    svg: {
+                      xmlDeclaration: false, // strip out the XML attribute
+                      doctypeDeclaration: false // don't include the !DOCTYPE declaration
+                    }
+                  }))
+              .pipe(gulp.dest(config.svgColoredSprites.dist))
+              // .pipe(gulp.dest(config.svgSprites.distCopy))
 })
 gulp.task('images:copy', function () {
   return gulp .src(config.img.src)
@@ -148,7 +183,7 @@ gulp.task('images:copy', function () {
               .pipe(imagemin())
               .pipe(gulp.dest(config.img.dist))
 })
-gulp.task('images', gulp.parallel('images:copy','images:svg'))
+gulp.task('images', gulp.parallel('images:copy','images:svg','images:svgColored'))
 
 gulp.task('watch', function () {
   gulp.watch(config.html.watch, gulp.series('html'));
