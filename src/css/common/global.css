@@ -10,7 +10,6 @@ html,body {
   height: 100%;
 }
 a {
-  /* color: #0088cc; */
   color: inherit;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
@@ -18,7 +17,6 @@ a {
 a:hover,
 a:focus,
 a:active {
-  color: #005580;
   text-decoration: underline;
 }
 a:visited {}
@@ -52,8 +50,9 @@ hr {
 
 .icon {
   display: inline-block;
-  width:25px;
-  height:25px;
+  width: 1.78rem;
+  height: 1.78rem;
   fill: currentColor;
+  /*vertical-align: -0.1em;*/
   transition: fill 250ms, color 250ms;
 }

@@ -119,6 +119,17 @@ gulp.task('images:svg', function () {
                           dest: ''
                         }
                     },
+                    shape               : {
+                        transform       : [
+                            {svgo       : {
+                              plugins : [
+                                  {removeStyleElement: true},
+                                  {removeAttrs: {attrs: '(stroke|fill)'}}
+                                  // {convertStyleToAttrs:true}
+                              ]
+                            }}
+                        ]
+                    },
                     svg: {
                       xmlDeclaration: false, // strip out the XML attribute
                       doctypeDeclaration: false // don't include the !DOCTYPE declaration
