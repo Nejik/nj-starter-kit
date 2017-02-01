@@ -54,5 +54,6 @@ hr {
   display: inline-block;
   width:25px;
   height:25px;
-  transition: fill 250ms;
+  fill: currentColor;
+  transition: fill 250ms, color 250ms;
 }

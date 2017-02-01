@@ -6,9 +6,12 @@ const postcssConfig = require('./configs/postcss.config.js');
 const del = require('del');
 const path = require('path')
 const gulp = require('gulp');
-const gulpIf = require('gulp-if');
 const gutil = require('gulp-util');
+const gulpIf = require('gulp-if');
+const plumber = require('gulp-plumber');
+const newer = require('gulp-newer');
 const sourcemaps = require('gulp-sourcemaps');
+
 
 //html
 const through = require('through2');
@@ -17,6 +20,12 @@ const assign = require('object-assign');
 
 //styles
 const postcss = require('gulp-postcss');
+
+
+//images
+const imagemin = require('gulp-imagemin');
+const svgSprite = require('gulp-svg-sprite');
+
 
 //js
 const webpack = require('webpack');
@@ -97,9 +106,44 @@ gulp.task('webpack', function (gulpCallback) {
   });
 })
 
+gulp.task('images:svg', function () {
+  return gulp .src(config.imgSprites.src)
+              .pipe(plumber({errorHandler: function (error) {
+                console.log(error)
+                this.emit('end');
+              }}))
+              .pipe(svgSprite({    
+                    mode : {
+                        symbol: {
+                          sprite: config.imgSprites.concat,
+                          dest: ''
+                        }
+                    },
+                    svg: {
+                      xmlDeclaration: false, // strip out the XML attribute
+                      doctypeDeclaration: false // don't include the !DOCTYPE declaration
+                    }
+                  }))
+              .pipe(gulp.dest(config.imgSprites.dist))
+              .pipe(gulp.dest(config.imgSprites.distCopy))
+})
+gulp.task('images:copy', function () {
+  return gulp .src(config.img.src)
+              .pipe(plumber({errorHandler: function (error) {
+                console.log(error)
+                this.emit('end');
+              }}))
+              .pipe(newer(config.img.dist))
+              .pipe(imagemin())
+              .pipe(gulp.dest(config.img.dist))
+})
+gulp.task('images', gulp.parallel('images:copy','images:svg'))
+
 gulp.task('watch', function () {
   gulp.watch(config.html.watch, gulp.series('html'));
   gulp.watch(config.css.watch, gulp.series('css'));
+
+  gulp.watch(config.img.watch, gulp.series('images'));
 })
 
 gulp.task('serve', function (cb) {//serve contains js task, because of webpack integration
@@ -143,8 +187,7 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
 
 
 
-gulp.task('build', gulp.parallel('html','css','webpack'))
-gulp.task('prod', gulp.series('clean', gulp.parallel('html','css','webpack')))
-
+gulp.task('build', gulp.parallel('html','css','webpack','images'))
+gulp.task('prod', gulp.series('clean', 'build'))
 
 gulp.task('default', gulp.series('build', gulp.parallel('serve','watch')))

@@ -1,25 +1,21 @@
 const argv = require('yargs').argv;
 const root = require('app-root-path');
 
-const src = root.resolve('src')
-const components = root.resolve('src/components')
-const cssDir = root.resolve('src/css')
-const img = root.resolve('src/img')
-const fonts = root.resolve('src/fonts')
-const vendor = root.resolve('src/vendor')
+
 const dist = root.resolve('dist');
 
 const isVerbose = argv.verbose;
 const isDevelopment = argv.env !== "production";
 
 let paths = {
-  src: src,
+  src: root.resolve('src'),
   dist: dist,
   publicPath: '/',
   root: root.toString(),
-  vendor: vendor,
+  vendor: root.resolve('src/vendor'),
+  fonts: root.resolve('src/fonts'),
 
-  components: components,
+  components: root.resolve('src/components'),
 
   html: {
     src: [root.resolve('src/*.ejs'), root.resolve('src/pages/*.ejs')],
@@ -28,12 +24,23 @@ let paths = {
   },
 
   css: {
-    dir: cssDir,
+    dir: root.resolve('src/css'),
     src: [root.resolve('src/css/styles.css')],
     dist: dist,
     watch: [root.resolve('src/**/*.css')]
   },
-  img: img,
+  img: {
+    dir: root.resolve('src/img'),
+    src: root.resolve('src/img/**/*.{jpg,jpeg,png,svg,gif,webp}'),
+    dist: root.resolve('dist/img'),
+    watch: root.resolve('src/img/**/*.{jpg,jpeg,png,svg,gif,webp}')
+  },
+  imgSprites: {
+    src: 'src/img/sprites/svg/**/*.svg',
+    concat: 'icons.svg',
+    dist: root.resolve('dist/img'),
+    distCopy: root.resolve('dist/img/sprites/svg')
+  },
 
   isVerbose: isVerbose,
   isDevelopment: isDevelopment
