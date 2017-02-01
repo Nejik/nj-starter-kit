@@ -50,9 +50,10 @@ hr {
 
 .icon {
   display: inline-block;
-  width: 1.78rem;
-  height: 1.78rem;
+  width: 1em;
+  height: 1em;
+  font-size: 25px;
   fill: currentColor;
   /*vertical-align: -0.1em;*/
-  transition: fill 250ms, color 250ms;
+  transition: fill 250ms, color 250ms, stroke 250ms;
 }
