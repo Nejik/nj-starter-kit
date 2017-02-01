@@ -171,7 +171,6 @@ gulp.task('images:svgColored', function () {
                     }
                   }))
               .pipe(gulp.dest(config.svgColoredSprites.dist))
-              // .pipe(gulp.dest(config.svgSprites.distCopy))
 })
 gulp.task('images:copy', function () {
   return gulp .src(config.img.src)

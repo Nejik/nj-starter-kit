@@ -39,7 +39,6 @@ let paths = {
     src: 'src/img/sprites/svg/**/*.svg',
     concat: 'icons.svg',
     dist: root.resolve('dist/img'),
-    // distCopy: root.resolve('dist/img/sprites/svg')
   },
   svgColoredSprites: {
     src: 'src/img/sprites/svgColored/**/*.svg',
