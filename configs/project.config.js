@@ -3,7 +3,7 @@ const argv = require('yargs').argv;
 const root = require('app-root-path');
 
 const isVerbose = argv.verbose;
-const isDevelopment = argv.env !== "production";
+let isDevelopment = process.env.NODE_ENV !== "production" && argv.env !== "production";
 
 const distString = isDevelopment ? 'dist' : 'prod';
 const dist = root.resolve(distString);

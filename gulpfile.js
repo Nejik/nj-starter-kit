@@ -1,6 +1,6 @@
-const config = require('./configs/project.config.js');
-const webpackConfig = require('./configs/webpack.config.js');
-const postcssConfig = require('./configs/postcss.config.js');
+let config = require('./configs/project.config.js');
+let webpackConfig = require('./configs/webpack.config.js');
+let postcssConfig = require('./configs/postcss.config.js');
 
 //common
 const del = require('del');
@@ -37,6 +37,23 @@ const bs = require('browser-sync').create();
 
 gulp.task('clean', function () {
   return del(['dist','prod'])
+})
+
+gulp.task('setProduction', function (cb) {
+  config = require('./configs/project.config.js');
+  //set production mode
+  process.env.NODE_ENV = 'production';
+  // process.argv.push('--watch');
+  //clear cache
+  delete require.cache[require.resolve('./configs/project.config.js')]
+  delete require.cache[require.resolve('./configs/webpack.config.js')]
+  delete require.cache[require.resolve('./configs/postcss.config.js')]
+  //set new configs for production mode
+  config = require('./configs/project.config.js');
+  webpackConfig = require('./configs/webpack.config.js');
+  postcssConfig = require('./configs/postcss.config.js');
+
+  cb();
 })
 
 function gulpEjs(data, options) {
@@ -241,7 +258,8 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
 
 
 
-
 gulp.task('build', gulp.parallel('html','css','webpack','images'))
+
+gulp.task('prod', gulp.series(gulp.parallel('clean','setProduction'), 'build'))
 
 gulp.task('default', gulp.series('build', gulp.parallel('serve','watch')))
