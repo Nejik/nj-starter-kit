@@ -89,8 +89,6 @@ gulp.task('html', function () {
             .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
 
-
-
 gulp.task('css', function () {
   return gulp .src(config.css.src)
               .pipe(gulpIf(config.isDevelopment, sourcemaps.init()))
@@ -126,7 +124,11 @@ gulp.task('images:svg', function () {
                               plugins : [
                                   {removeStyleElement: true},
                                   {removeAttrs: {attrs: '(stroke|fill)'}}
-                              ]
+                              ],
+                              js2svg : { 
+                                pretty: true,
+                                indent: 2 
+                              }
                             }}
                         ]
                     },
@@ -161,7 +163,11 @@ gulp.task('images:svgColored', function () {
                             {svgo       : {
                               plugins : [
                                   
-                              ]
+                              ],
+                              js2svg : { 
+                                pretty: true,
+                                indent: 2 
+                              }
                             }}
                         ]
                     },
