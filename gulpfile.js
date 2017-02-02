@@ -105,12 +105,7 @@ gulp.task('webpack', function (cb) {
 })
 
 gulp.task('images:svg', function () {
-  return gulp .src(config.svgSprites.src)
-              .pipe(plumber({errorHandler: function (error) {
-                console.log(error)
-                this.emit('end');
-              }}))
-              .pipe(svgSprite({    
+  let svgSpriteConfig = {
                     mode : {
                         inline:true,
                         symbol: {
@@ -126,7 +121,7 @@ gulp.task('images:svg', function () {
                                   {removeAttrs: {attrs: '(stroke|fill)'}}
                               ],
                               js2svg : { 
-                                pretty: true,
+                                pretty: config.isDevelopment,
                                 indent: 2 
                               }
                             }}
@@ -136,7 +131,14 @@ gulp.task('images:svg', function () {
                       xmlDeclaration: false, // strip out the XML attribute
                       doctypeDeclaration: false // don't include the !DOCTYPE declaration
                     }
-                  }))
+                  }
+
+  return gulp .src(config.svgSprites.src)
+              .pipe(plumber({errorHandler: function (error) {
+                console.log(error)
+                this.emit('end');
+              }}))
+              .pipe(svgSprite(svgSpriteConfig))
               .pipe(gulp.dest(config.svgSprites.dist))
               // .pipe(gulp.dest(config.svgSprites.distCopy))
 })
@@ -145,12 +147,7 @@ gulp.task('images:svg', function () {
 // now svg shouldn't be styled via style tag, use style attribute instead to save colors in sprite
 //waiting for this PR https://github.com/svg/svgo/pull/592 , it will inline all css rules from <style> tag
 gulp.task('images:svgColored', function () {
-  return gulp .src(config.svgColoredSprites.src)
-              .pipe(plumber({errorHandler: function (error) {
-                console.log(error)
-                this.emit('end');
-              }}))
-              .pipe(svgSprite({    
+  let svgSpriteConfig = {
                     mode : {
                         inline:true,
                         symbol: {
@@ -165,7 +162,7 @@ gulp.task('images:svgColored', function () {
                                   
                               ],
                               js2svg : { 
-                                pretty: true,
+                                pretty: config.isDevelopment,
                                 indent: 2 
                               }
                             }}
@@ -175,7 +172,14 @@ gulp.task('images:svgColored', function () {
                       xmlDeclaration: false, // strip out the XML attribute
                       doctypeDeclaration: false // don't include the !DOCTYPE declaration
                     }
-                  }))
+                  }
+
+  return gulp .src(config.svgColoredSprites.src)
+              .pipe(plumber({errorHandler: function (error) {
+                console.log(error)
+                this.emit('end');
+              }}))
+              .pipe(svgSprite(svgSpriteConfig))
               .pipe(gulp.dest(config.svgColoredSprites.dist))
 })
 gulp.task('images:copy', function () {
@@ -239,6 +243,5 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
 
 
 gulp.task('build', gulp.parallel('html','css','webpack','images'))
-gulp.task('prod', gulp.series('clean', 'build'))
 
 gulp.task('default', gulp.series('build', gulp.parallel('serve','watch')))
