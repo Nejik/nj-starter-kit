@@ -1,3 +1,4 @@
+const path = require('path');
 const argv = require('yargs').argv;
 const root = require('app-root-path');
 
@@ -5,7 +6,6 @@ const isVerbose = argv.verbose;
 const isDevelopment = argv.env !== "production";
 
 const distString = isDevelopment ? 'dist' : 'prod';
-
 const dist = root.resolve(distString);
 
 
@@ -34,17 +34,25 @@ let paths = {
     dist: dist,
     watch: [root.resolve('src/**/*.css')]
   },
+
+  js: {
+    src: [root.resolve('src/app.js')],
+    dist: dist
+  },
+
   img: {
     dir: root.resolve('src/img'),
     src: root.resolve('src/img/**/*.{jpg,jpeg,png,svg,gif,webp}'),
     dist: root.resolve(distString+'/img'),
     watch: root.resolve('src/img/**/*.{jpg,jpeg,png,svg,gif,webp}')
   },
+
   svgSprites: {
     src: 'src/img/sprites/svg/**/*.svg',
     concat: 'icons.svg',
     dist: root.resolve(distString+'/img'),
   },
+
   svgColoredSprites: {
     src: 'src/img/sprites/svgColored/**/*.svg',
     concat: 'iconsColored.svg',

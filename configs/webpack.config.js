@@ -13,23 +13,25 @@ const babelConfig = Object.assign({}, pkg.babel, {
   cacheDirectory: true,
 });
 
-
 const webpackConfig = {
   // The base directory for resolving the entry option
   context: config.src,
 
   // The entry point for the bundle
-  entry: [
-    /* The main entry point of your JavaScript application */
-    path.resolve(config.src, 'app.js')
-  ],
+  // entry: [
+  //   /* The main entry point of your JavaScript application */
+  //   path.resolve(config.src, 'app.js')
+  // ],
+  entry: config.js.src,
 
   // Options affecting the output of the compilation
   output: {
-    path: config.dist,
+    path: config.js.dist,
     publicPath: config.publicPath,
-    filename: config.isDevelopment ? 'bundle.js?[hash]' : 'bundle.[hash].js',
-    chunkFilename: config.isDevelopment ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
+    // filename: config.isDevelopment ? 'bundle.js?[hash]' : 'bundle.[hash].js',
+    filename: 'bundle.js',
+    // chunkFilename: config.isDevelopment ? '[id].js?[chunkhash]' : '[id].[chunkhash].js',
+    chunkFilename: '[id].js',
     sourcePrefix: '  ',
   },
 
@@ -63,7 +65,7 @@ const webpackConfig = {
     // Emit a JSON file with assets paths
     // https://github.com/sporto/assets-webpack-plugin#options
     new AssetsPlugin({
-      path: config.dist,
+      path: config.js.dist,
       filename: 'assets.json',
       prettyPrint: true,
     }),

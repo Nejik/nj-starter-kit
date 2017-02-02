@@ -80,7 +80,7 @@ function gulpEjs(data, options) {
 }
 gulp.task('html', function () {
   return gulp.src(config.html.src)
-            .pipe(gulpEjs({//data
+            .pipe(gulpEjs({//template variables
               
             }, {//options
               root: config.src
@@ -100,9 +100,9 @@ gulp.task('css', function () {
               .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
 
-gulp.task('webpack', function (gulpCallback) {
+gulp.task('webpack', function (cb) {
   webpack(webpackConfig, function() {
-    gulpCallback();
+    cb();
   });
 })
 
@@ -141,7 +141,7 @@ gulp.task('images:svg', function () {
 
 //todo
 // now svg shouldn't be styled via style tag, use style attribute instead to save colors in sprite
-//waiting for this PR https://github.com/svg/svgo/pull/592 , it removes limitation above
+//waiting for this PR https://github.com/svg/svgo/pull/592 , it will inline all css rules from <style> tag
 gulp.task('images:svgColored', function () {
   return gulp .src(config.svgColoredSprites.src)
               .pipe(plumber({errorHandler: function (error) {

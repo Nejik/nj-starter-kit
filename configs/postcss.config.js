@@ -11,8 +11,7 @@ const cssInlineSvg = require('postcss-inline-svg');
 module.exports = [
   cssImport({
     root: config.root,
-    // node_modules exists in resolve paths by default and we don't need to place it here
-    path: [
+    path: [// node_modules exists in resolve paths by default and we don't need to place it here
       config.components,//to import component styles, e.g. header/header.css
       config.src,
       config.css.dir
