@@ -36,7 +36,7 @@ const bs = require('browser-sync').create();
 
 
 gulp.task('clean', function () {
-  return del([config.dist])
+  return del(['dist','prod'])
 })
 
 function gulpEjs(data, options) {
