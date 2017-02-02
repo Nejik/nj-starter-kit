@@ -1,0 +1,3 @@
+
+*look at gulp-ejs fixes separate options
+*look at PR https://github.com/svg/svgo/pull/592
