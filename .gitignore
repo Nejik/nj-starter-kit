@@ -50,4 +50,5 @@ debug.log
 .vscode
 node_modules
 dist
+prod
 design
