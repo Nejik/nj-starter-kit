@@ -110,9 +110,15 @@ gulp.task('css', function () {
   return gulp .src(config.css.src)
               .pipe(gulpIf(config.isDevelopment, sourcemaps.init()))
               .pipe(postcss(postcssConfig))
+    .on('error', function () {
+      console.log('error', arguments);
+    })
               .pipe(gulpIf(config.isDevelopment, sourcemaps.write()))
               .pipe(gulp.dest(config.css.dist))
               .pipe(gulpIf(config.isDevelopment, bs.stream()))
+              .on('error', function () {
+                console.log('error', arguments);
+              })
 })
 
 gulp.task('webpack', function (cb) {
