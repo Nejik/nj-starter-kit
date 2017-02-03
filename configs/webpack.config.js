@@ -18,10 +18,6 @@ const webpackConfig = {
   context: config.src,
 
   // The entry point for the bundle
-  // entry: [
-  //   /* The main entry point of your JavaScript application */
-  //   path.resolve(config.src, 'app.js')
-  // ],
   entry: config.js.src,
 
   // Options affecting the output of the compilation
@@ -40,7 +36,7 @@ const webpackConfig = {
 
   // Developer tool to enhance debugging, source maps
   // http://webpack.github.io/docs/configuration.html#devtool
-  devtool: config.isDevelopment ? 'source-map' : false,
+  devtool: config.isDevelopment ? 'inline-source-map' : false,
 
   // What information should be printed to the console
   stats: {
@@ -82,16 +78,12 @@ const webpackConfig = {
   }
 };
 
-// Optimize the bundle in release (production) mode
-if (!config.isDevelopment) {
+if (config.isDevelopment) {
+  webpackConfig.plugins.push(new webpack.NoErrorsPlugin());
+} else {
   webpackConfig.plugins.push(new webpack.optimize.DedupePlugin());
   webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: config.isVerbose } }));
   webpackConfig.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
-}
-
-// dev
-if (config.isDevelopment) {
-  webpackConfig.plugins.push(new webpack.NoErrorsPlugin());
 }
 
 module.exports = webpackConfig;
