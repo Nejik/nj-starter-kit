@@ -11,7 +11,7 @@ const gulpIf = require('gulp-if');
 const plumber = require('gulp-plumber');
 const newer = require('gulp-newer');
 const sourcemaps = require('gulp-sourcemaps');
-
+const notifier = require('node-notifier'); 
 
 //html
 const through = require('through2');
@@ -108,17 +108,23 @@ gulp.task('html', function () {
 
 gulp.task('css', function () {
   return gulp .src(config.css.src)
+              .pipe(plumber({
+                errorHandler: function (error) {
+                  notifier.notify({
+                    title: config.name,
+                    message: 'styles error',
+                    icon: path.join(__dirname, 'other/postcss.png'),
+                    sound: true,
+                    // wait:true
+                  });
+                  this.emit('end');
+                }
+              }))
               .pipe(gulpIf(config.isDevelopment, sourcemaps.init()))
               .pipe(postcss(postcssConfig))
-    .on('error', function () {
-      console.log('error', arguments);
-    })
               .pipe(gulpIf(config.isDevelopment, sourcemaps.write()))
               .pipe(gulp.dest(config.css.dist))
               .pipe(gulpIf(config.isDevelopment, bs.stream()))
-              .on('error', function () {
-                console.log('error', arguments);
-              })
 })
 
 gulp.task('webpack', function (cb) {
