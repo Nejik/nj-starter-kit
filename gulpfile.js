@@ -106,7 +106,9 @@ gulp.task('css', function () {
 })
 
 gulp.task('webpack', function (cb) {
-  webpack(webpackConfig, function() {
+  webpack(webpackConfig, function(err, stats) {
+
+    console.log('build');
     cb();
   });
 })
