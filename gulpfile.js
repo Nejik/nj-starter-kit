@@ -15,7 +15,7 @@ const notifier = require('node-notifier');
 
 //html
 const through = require('through2');
-const ejs = require('gulp-ejs');
+const ejs = require('ejs');
 const assign = require('object-assign');
 
 //styles
@@ -56,29 +56,52 @@ gulp.task('setProduction', function (cb) {
   cb();
 })
 
+function gulpEjs(data, options) {
+  data = data || {};
+  options = options || {};
+  
+  return through.obj(function (file, enc, cb) {
+              if (file.isNull()) {
+                  this.push(file);
+                  return cb();
+              }
+            
+              if (file.isStream()) {
+                  this.emit(
+                      'error',
+                      new gutil.PluginError('gulp-ejs', 'Streaming not supported')
+                  );
+              }
+
+              data = assign({}, data, file.data);
+              
+              options = assign({}, options)
+              options.filename = file.path;
+              
+              try {
+                file.contents = new Buffer(
+                    ejs.render(file.contents.toString(), data, options)
+                );
+                
+                //change extension from ejs to html
+                file.path = gutil.replaceExtension(file.path, '.html');
+                  
+              } catch (err) {
+                  this.emit('error', new gutil.PluginError('gulp-ejs', err.toString()));
+              }
+            
+              this.push(file);
+
+              cb();
+            })
+}
 gulp.task('html', function () {
   return gulp.src(config.html.src)
-            .pipe(plumber({
-              errorHandler: function (error) {
-                notifier.notify({
-                  title: config.name,
-                  message: 'html error',
-                  icon: path.join(__dirname, 'other/html.png'),
-                  sound: true,
-                  // wait:true
-                });
-                this.emit('end');
-              }
-            }))
-            .pipe(ejs({},//data, A hash object where each key corresponds to a variable in your template.
-            {//options, A hash object for ejs options.
+            .pipe(gulpEjs({//template variables
+              
+            }, {//options
               root: config.src
-            },
-            {//settings, A hash object to configure the plugin.
-              ext: '.html'
-            }
-            ))
-            .on('error', gutil.log)
+            })).on('error', gutil.log)
             .pipe(gulp.dest(config.html.dist))
             .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
