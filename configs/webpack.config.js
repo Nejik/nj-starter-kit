@@ -32,7 +32,7 @@ const webpackConfig = {
   },
 
   // Switch loaders to debug or release mode
-  debug: config.isDevelopment,
+  // debug: config.isDevelopment,
 
   // Developer tool to enhance debugging, source maps
   // http://webpack.github.io/docs/configuration.html#devtool

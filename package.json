@@ -39,8 +39,8 @@
     "postcss-inline-svg": "^2.3.0",
     "postcss-reporter": "^3.0.0",
     "through2": "^2.0.3",
-    "webpack": "^1.14.0",
-    "webpack-dev-middleware": "^1.9.0",
+    "webpack": "^2.2.1",
+    "webpack-dev-middleware": "^1.10.0",
     "yargs": "^6.6.0"
   },
   "babel": {
