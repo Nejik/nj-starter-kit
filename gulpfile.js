@@ -87,6 +87,7 @@ gulp.task('css', function () {
   return gulp .src(config.css.src)
               .pipe(plumber({
                 errorHandler: function (error) {
+                  console.log(error.message);
                   notifier.notify({
                     title: config.name,
                     message: 'styles error',
