@@ -105,11 +105,9 @@ gulp.task('css', function () {
               .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
 
-gulp.task('webpack', function (cb) {
+gulp.task('webpack', function (callback) {
   webpack(webpackConfig, function(err, stats) {
-
-    console.log('build');
-    cb();
+    callback();
   });
 })
 
@@ -219,24 +217,33 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
   });
 
   compiler.plugin('done', stats => {
-    if (serverStarted) {
-      bs.reload()
-    } else {
-      serverStarted = true;
+    if (stats.hasErrors()) {
+        notifier.notify({
+          title: config.name,
+          message: 'Webpack error',
+          icon: path.join(__dirname, 'other/js.png'),
+          sound: true,
+        });
+      } else {
+        bs.reload()
+      }
 
-      bs.init({
-        open: false,
-        port: process.env.PORT || 3000,
-        ui: { port: Number(process.env.PORT || 3000) + 1 },
-        server: {
-          baseDir: config.dist,
-          middleware: [
-            webpackDevMiddleware,
-            require('connect-history-api-fallback')(),
-          ],
-        },
-      });
-    }
+      if(!serverStarted) {
+        serverStarted = true;
+          
+        bs.init({
+          open: false,
+          port: process.env.PORT || 3000,
+          ui: { port: Number(process.env.PORT || 3000) + 1 },
+          server: {
+            baseDir: config.dist,
+            middleware: [
+              webpackDevMiddleware,
+              require('connect-history-api-fallback')(),
+            ],
+          },
+        });
+      }
   });
 })
 

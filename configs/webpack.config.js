@@ -69,7 +69,7 @@ const webpackConfig = {
 
   // Options affecting the normal modules
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
         loader: `babel-loader?${JSON.stringify(babelConfig)}`,
@@ -79,9 +79,8 @@ const webpackConfig = {
 };
 
 if (config.isDevelopment) {
-  webpackConfig.plugins.push(new webpack.NoErrorsPlugin());
+  webpackConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
 } else {
-  webpackConfig.plugins.push(new webpack.optimize.DedupePlugin());
   webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: config.isVerbose } }));
   webpackConfig.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
 }
