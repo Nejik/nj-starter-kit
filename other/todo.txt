@@ -1,3 +1,4 @@
 
-*look at gulp-ejs fixes separate options
+* прикрутить postcss
+* прикрутить extract text plugin
 *look at PR https://github.com/svg/svgo/pull/592
