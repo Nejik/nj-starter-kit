@@ -1,3 +1,5 @@
+@import 'normalize-css'; /*this css imported from node_modules*/
+
 body {
   color: red;
 }

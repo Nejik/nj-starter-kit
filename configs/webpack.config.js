@@ -82,12 +82,24 @@ const webpackConfig = {
 };
 
 if (config.isDevelopment) {
-  webpackConfig.entry.unshift('webpack-hot-middleware/client?reload=true&noInfo=true');
+  webpackConfig.entry.unshift('webpack-hot-middleware/client?overlay=false&reload=true&noInfo=true&overlay=false');
   webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
   webpackConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
   webpackConfig.module.rules.push({
      test: /.css$/,
-     loader: 'style-loader!css-loader?sourceMap=inline'
+     use: [
+       'style-loader',
+      //  {
+      //    loader: 'css-loader',
+      //    query: {
+      //      'sourceMap': 'inline',
+      //      'importLoaders':1
+      //    }
+      //  },
+       'css-loader?sourceMap=inline&importLoaders=1',
+       'postcss-loader'
+     ]
+    //  loader: 'style-loader!css-loader?sourceMap=inline'
   });
   // webpackConfig.plugins.push(new ExtractTextPlugin({
   //                                                   filename: "app.css"

@@ -218,10 +218,6 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
   });
 
   compiler.plugin('done', stats => {
-    console.log('----------------------------');
-    console.log(stats.toJson());
-    console.log('----------------------------');
-
     if (stats.hasErrors()) {
         notifier.notify({
           title: config.name,
