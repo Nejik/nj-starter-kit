@@ -33,6 +33,7 @@ const webpack = require('webpack');
 //server
 let serverStarted = false;
 const bs = require('browser-sync').create();
+global.HMR = true;
 
 
 gulp.task('clean', function () {
@@ -217,6 +218,10 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
   });
 
   compiler.plugin('done', stats => {
+    console.log('----------------------------');
+    console.log(stats.toJson());
+    console.log('----------------------------');
+
     if (stats.hasErrors()) {
         notifier.notify({
           title: config.name,
@@ -225,7 +230,7 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
           sound: true,
         });
       } else {
-        bs.reload()
+        bs.stream()
       }
 
       if(!serverStarted) {
@@ -239,6 +244,7 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
             baseDir: config.dist,
             middleware: [
               webpackDevMiddleware,
+              require('webpack-hot-middleware')(compiler),
               require('connect-history-api-fallback')(),
             ],
           },

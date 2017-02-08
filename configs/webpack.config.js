@@ -2,6 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
 const config = require('./project.config.js');
@@ -30,6 +31,8 @@ const webpackConfig = {
     chunkFilename: '[id].js',
     sourcePrefix: '  ',
   },
+
+  //todo, add resolve option for js/css/libs
 
   // Switch loaders to debug or release mode
   // debug: config.isDevelopment,
@@ -71,7 +74,7 @@ const webpackConfig = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: /.js?$/,
         loader: `babel-loader?${JSON.stringify(babelConfig)}`,
       }
     ],
@@ -79,10 +82,34 @@ const webpackConfig = {
 };
 
 if (config.isDevelopment) {
+  webpackConfig.entry.unshift('webpack-hot-middleware/client?reload=true&noInfo=true');
+  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
   webpackConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
+  webpackConfig.module.rules.push({
+     test: /.css$/,
+     loader: 'style-loader!css-loader?sourceMap=inline'
+  });
+  // webpackConfig.plugins.push(new ExtractTextPlugin({
+  //                                                   filename: "app.css"
+  //                                                 }))
+  // webpackConfig.module.rules.push({
+  //                                   test: /\.css$/,
+  //                                   use: ExtractTextPlugin.extract({
+  //                                           use: [
+  //                                             'style-loader',
+  //                                             'css-loader?importLoaders=1',
+  //                                             'postcss-loader'
+  //                                           ]
+  //                                         })
+                                    
+  //                                 });
+ 
 } else {
   webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: config.isVerbose } }));
   webpackConfig.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
+
+
+  
 }
 
 module.exports = webpackConfig;
