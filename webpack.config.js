@@ -84,29 +84,32 @@ if (config.isDevelopment) {
   webpackConfig.entry.unshift('webpack-hot-middleware/client?overlay=false&reload=true&noInfo=true&overlay=false');
   webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
   webpackConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
-  webpackConfig.module.rules.push({
-     test: /.css$/,
-     use: [
-       'style-loader',
-       'css-loader?sourceMap=inline&importLoaders=1',
-       'postcss-loader'
-     ]
-  });
+
+  //disable by default
+  // webpackConfig.module.rules.push({
+  //    test: /.css$/,
+  //    use: [
+  //      'style-loader',
+  //      'css-loader?sourceMap=inline&importLoaders=1',
+  //      'postcss-loader'
+  //    ]
+  // });
 } else {
   webpackConfig.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
 
-  webpackConfig.plugins.push(new ExtractTextPlugin(config.css.webpackStylesName));
-  webpackConfig.module.rules.push({
-                                    test: /\.css$/,
-                                    use: ExtractTextPlugin.extract({
-                                            fallback: "style-loader",
-                                            use: [
-                                              'css-loader?importLoaders=1',
-                                              'postcss-loader'
-                                            ]
-                                          })
+  //disable by default
+  // webpackConfig.plugins.push(new ExtractTextPlugin(config.css.webpackStylesName));
+  // webpackConfig.module.rules.push({
+  //                                   test: /\.css$/,
+  //                                   use: ExtractTextPlugin.extract({
+  //                                           fallback: "style-loader",
+  //                                           use: [
+  //                                             'css-loader?importLoaders=1',
+  //                                             'postcss-loader'
+  //                                           ]
+  //                                         })
                                     
-                                  });
+  //                                 });
 
   webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: config.isVerbose } }));
 }
