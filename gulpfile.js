@@ -1,6 +1,6 @@
-let config = require('./configs/project.config.js');
-let webpackConfig = require('./configs/webpack.config.js');
-let postcssConfig = require('./configs/postcss.config.js');
+let config = require('./project.config.js');
+let webpackConfig = require('./webpack.config.js');
+let postcssConfig = require('./postcss.config.js');
 
 //common
 const del = require('del');
@@ -41,18 +41,18 @@ gulp.task('clean', function () {
 })
 
 gulp.task('setProduction', function (cb) {
-  config = require('./configs/project.config.js');
+  config = require('./project.config.js');
   //set production mode
   process.env.NODE_ENV = 'production';
   // process.argv.push('--watch');
   //clear cache
-  delete require.cache[require.resolve('./configs/project.config.js')]
-  delete require.cache[require.resolve('./configs/webpack.config.js')]
-  delete require.cache[require.resolve('./configs/postcss.config.js')]
+  delete require.cache[require.resolve('./project.config.js')]
+  delete require.cache[require.resolve('./webpack.config.js')]
+  delete require.cache[require.resolve('./postcss.config.js')]
   //set new configs for production mode
-  config = require('./configs/project.config.js');
-  webpackConfig = require('./configs/webpack.config.js');
-  postcssConfig = require('./configs/postcss.config.js');
+  config = require('./project.config.js');
+  webpackConfig = require('./webpack.config.js');
+  postcssConfig = require('./postcss.config.js');
 
   cb();
 })
@@ -84,7 +84,16 @@ gulp.task('html', function () {
             .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
 
+let cssWatching = false;
 gulp.task('css', function () {
+  //omit tilde only for gulp version, because tilde in css import statements needs only for webpack
+  postcssConfig.unshift(require('postcss-omit-import-tilde'))
+
+  if (!cssWatching) {
+    cssWatching = true;
+    gulp.watch(config.css.watch, gulp.series('css'))
+  }
+  
   return gulp .src(config.css.src)
               .pipe(plumber({
                 errorHandler: function (error) {
@@ -204,7 +213,8 @@ gulp.task('images', gulp.parallel('images:copy','images:svg','images:svgColored'
 
 gulp.task('watch', function () {
   gulp.watch(config.html.watch, gulp.series('html'));
-  gulp.watch(config.css.watch, gulp.series('css'));
+  //watch for css we run only in css task, because css we can build via webpack and then gulp task not needed
+  // gulp.watch(config.css.watch, gulp.series('css'));
 
   gulp.watch(config.img.watch, gulp.series('images'));
 })

@@ -40,6 +40,7 @@
     "postcss-import": "^9.1.0",
     "postcss-inline-svg": "^2.3.0",
     "postcss-loader": "^1.2.2",
+    "postcss-omit-import-tilde": "^1.0.1",
     "postcss-reporter": "^3.0.0",
     "style-loader": "^0.13.1",
     "through2": "^2.0.3",

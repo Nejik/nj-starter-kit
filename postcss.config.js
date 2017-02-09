@@ -1,4 +1,4 @@
-const config = require('./configs/project.config');
+const config = require('./project.config');
 
 const cssImport = require('postcss-import');
 const cssNext = require('postcss-cssnext');
@@ -11,7 +11,7 @@ const cssReporter = require('postcss-reporter');
 let postcssConfig = [
   cssImport({
     root: config.root,
-    path: [// node_modules exists in resolve paths by default and we don't need to place it here
+    addModulesDirectories: [// node_modules exists in resolve paths by default and we don't need to place it here
       config.components,//to import component styles, e.g. header/header.css
       config.src,
       config.css.dir

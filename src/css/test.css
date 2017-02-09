@@ -1,5 +1,9 @@
-@import 'normalize-css'; /*this css imported from node_modules*/
+/*@import 'normalize-css'; */
+@import 'common/_custom_normalize.css';
 
 body {
   color: red;
+  & a {
+    color:green;
+  }
 }

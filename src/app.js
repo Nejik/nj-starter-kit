@@ -1,5 +1,5 @@
 import './css/test.css';
 
 (function () {
-  console.log('main file 4')
+  console.log('main file')
 })()

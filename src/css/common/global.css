@@ -8,6 +8,7 @@ html, input, select, textarea, button {
 }
 html,body {
   height: 100%;
+  background-color: #fff;
 }
 a {
   color: inherit;

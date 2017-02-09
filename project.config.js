@@ -2,7 +2,7 @@ const path = require('path');
 const argv = require('yargs').argv;
 const root = require('app-root-path');
 
-const pkg = require('../package.json');
+const pkg = require('./package.json');
 
 const isVerbose = argv.verbose;
 let isDevelopment = process.env.NODE_ENV !== "production" && argv.env !== "production";
