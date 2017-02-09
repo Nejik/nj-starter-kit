@@ -7,25 +7,27 @@ const cssMqPacker = require('css-mqpacker');
 const cssInlineSvg = require('postcss-inline-svg');
 const cssReporter = require('postcss-reporter');
 
-
-let postcssConfig = [
-  cssImport({
-    root: config.root,
-    addModulesDirectories: [// node_modules exists in resolve paths by default and we don't need to place it here
-      config.components,//to import component styles, e.g. header/header.css
-      config.src,
-      config.css.dir
-    ]
-  }),
-  cssNext,
-  cssInlineSvg({ path: config.src }),
-  cssMqPacker({
-    sort: true
-  }),
-  cssReporter({
-    throwError:true
-  })
-]
+let postcssConfig = {
+  //just comment: in webpack we should sent object with field plugins and array of plugins, but in gulp we should send only array, not object
+  plugins: [
+    cssImport({
+      root: config.root,
+      addModulesDirectories: [// node_modules exists in resolve paths by default and we don't need to place it here
+        config.components,//to import component styles, e.g. header/header.css
+        config.src,
+        config.css.dir
+      ]
+    }),
+    cssNext,
+    cssInlineSvg({ path: config.src }),
+    cssMqPacker({
+      sort: true
+    }),
+    cssReporter({
+      throwError:true
+    })
+  ]
+}
 
 if (!config.isDevelopment) {
     postcssConfig.push(cssNano({

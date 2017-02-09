@@ -86,9 +86,10 @@ gulp.task('html', function () {
 
 let cssWatching = false;
 gulp.task('css', function () {
-  //omit tilde only for gulp version, because tilde in css import statements needs only for webpack
-  postcssConfig.unshift(require('postcss-omit-import-tilde'))
+  //just comment: omit tilde only for gulp version, because tilde in css import statements needs only for webpack
+  postcssConfig.plugins.unshift(require('postcss-omit-import-tilde'))
 
+  //watch for css we run only in css task, because css we can build via webpack and then gulp task not needed
   if (!cssWatching) {
     cssWatching = true;
     gulp.watch(config.css.watch, gulp.series('css'))
@@ -109,7 +110,7 @@ gulp.task('css', function () {
                 }
               }))
               .pipe(gulpIf(config.isDevelopment, sourcemaps.init()))
-              .pipe(postcss(postcssConfig))
+              .pipe(postcss(postcssConfig.plugins))
               .pipe(gulpIf(config.isDevelopment, sourcemaps.write()))
               .pipe(gulp.dest(config.css.dist))
               .pipe(gulpIf(config.isDevelopment, bs.stream()))
