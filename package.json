@@ -2,7 +2,6 @@
   "name": "newproject",
   "version": "0.0.1",
   "dependencies": {
-    "normalize-css": "^2.3.1",
     "normalize.css": "^5.0.0"
   },
   "scripts": {
@@ -40,7 +39,6 @@
     "postcss-import": "^9.1.0",
     "postcss-inline-svg": "^2.3.0",
     "postcss-loader": "^1.2.2",
-    "postcss-omit-import-tilde": "^1.0.1",
     "postcss-reporter": "^3.0.0",
     "style-loader": "^0.13.1",
     "through2": "^2.0.3",

@@ -35,6 +35,7 @@ let paths = {
     dir: root.resolve('src/css'),
     src: [root.resolve('src/css/styles.css')],
     dist: dist,
+    webpackStylesName: 'webpack.styles.css',
     watch: [root.resolve('src/**/*.css')]
   },
   

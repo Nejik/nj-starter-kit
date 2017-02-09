@@ -9,7 +9,7 @@
 /*@import 'vendor/vendor.css';*/
 
 /* import here all default/reset styles */
-@import "~normalize.css";
+@import "normalize.css";
 
 @import 'common/_custom_normalize.css';
 @import 'common/_variables.css';

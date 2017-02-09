@@ -84,17 +84,7 @@ gulp.task('html', function () {
             .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
 
-let cssWatching = false;
 gulp.task('css', function () {
-  //just comment: omit tilde only for gulp version, because tilde in css import statements needs only for webpack
-  postcssConfig.plugins.unshift(require('postcss-omit-import-tilde'))
-
-  //watch for css we run only in css task, because css we can build via webpack and then gulp task not needed
-  if (!cssWatching) {
-    cssWatching = true;
-    gulp.watch(config.css.watch, gulp.series('css'))
-  }
-  
   return gulp .src(config.css.src)
               .pipe(plumber({
                 errorHandler: function (error) {
@@ -118,6 +108,24 @@ gulp.task('css', function () {
 
 gulp.task('webpack', function (callback) {
   webpack(webpackConfig, function(err, stats) {
+
+    //error handling
+    if (err) {
+      console.error(err.stack || err);
+      if (err.details) {
+        console.error(err.details);
+      }
+      return;
+    }
+    const info = stats.toJson();
+    if (stats.hasErrors()) {
+      console.error(info.errors);
+    }
+    if (stats.hasWarnings()) {
+      console.warn(info.warnings)
+    }
+
+
     callback();
   });
 })
@@ -214,8 +222,7 @@ gulp.task('images', gulp.parallel('images:copy','images:svg','images:svgColored'
 
 gulp.task('watch', function () {
   gulp.watch(config.html.watch, gulp.series('html'));
-  //watch for css we run only in css task, because css we can build via webpack and then gulp task not needed
-  // gulp.watch(config.css.watch, gulp.series('css'));
+  gulp.watch(config.css.watch, gulp.series('css'));
 
   gulp.watch(config.img.watch, gulp.series('images'));
 })
