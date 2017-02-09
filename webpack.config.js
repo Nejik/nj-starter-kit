@@ -84,37 +84,26 @@ if (config.isDevelopment) {
   webpackConfig.entry.unshift('webpack-hot-middleware/client?overlay=false&reload=true&noInfo=true&overlay=false');
   webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
   webpackConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
+  webpackConfig.plugins.push(new ExtractTextPlugin('styles.webpack.css'));
   webpackConfig.module.rules.push({
-     test: /.css$/,
-     use: [
-       'style-loader',
-      //  {
-      //    loader: 'css-loader',
-      //    query: {
-      //      'sourceMap': 'inline',
-      //      'importLoaders':1
-      //    }
-      //  },
-       'css-loader?sourceMap=inline&importLoaders=1',
-       'postcss-loader'
-     ]
-    //  loader: 'style-loader!css-loader?sourceMap=inline'
-  });
-  // webpackConfig.plugins.push(new ExtractTextPlugin({
-  //                                                   filename: "app.css"
-  //                                                 }))
-  // webpackConfig.module.rules.push({
-  //                                   test: /\.css$/,
-  //                                   use: ExtractTextPlugin.extract({
-  //                                           use: [
-  //                                             'style-loader',
-  //                                             'css-loader?importLoaders=1',
-  //                                             'postcss-loader'
-  //                                           ]
-  //                                         })
+                                    test: /\.css$/,
+                                    use: ExtractTextPlugin.extract({
+                                            fallback: "style-loader",
+                                            use: [
+                                              'css-loader?importLoaders=1',
+                                              'postcss-loader'
+                                            ]
+                                          })
                                     
-  //                                 });
- 
+                                  });
+  // webpackConfig.module.rules.push({
+  //    test: /.css$/,
+  //    use: [
+  //      'style-loader',
+  //      'css-loader?sourceMap=inline&importLoaders=1',
+  //      'postcss-loader'
+  //    ]
+  // });
 } else {
   webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: config.isVerbose } }));
   webpackConfig.plugins.push(new webpack.optimize.AggressiveMergingPlugin());

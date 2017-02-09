@@ -1,6 +1,3 @@
-/*@import 'normalize-css'; */
-@import 'common/_custom_normalize.css';
-
 body {
   color: red;
   & a {
