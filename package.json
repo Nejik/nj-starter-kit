@@ -6,7 +6,6 @@
   },
   "scripts": {
     "start": "gulp",
-    "build": "gulp build",
     "prod": "gulp prod"
   },
   "devDependencies": {
