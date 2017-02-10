@@ -1,15 +1,11 @@
 /*!!! semicolons are very important !!!*/
 
-/* import here all vendor styles */
-/* @import 'vendor/jquery.bxslider.css'; */
-/* @import 'vendor/lightbox.css'; */
-
-
-/*in vendor.css we write our custom styles for vendor plugins (redefine or theme default plugin styles)*/
-/*@import 'vendor/vendor.css';*/
-
 /* import here all default/reset styles */
 @import "normalize.css";
+
+/*in vendor.css we import other vendor css files and write our custom styles for vendor plugins (redefine or theme default plugin styles)*/
+@import 'vendor/vendor.css';
+
 
 /* import global site styles, common for all pages */
 @import 'common/_custom_normalize.css';

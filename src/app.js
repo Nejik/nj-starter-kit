@@ -1,3 +1,3 @@
-(function () {
-  console.log('main file')
-})()
+import {vendor} from 'vendor/vendor.js';
+vendor();
+

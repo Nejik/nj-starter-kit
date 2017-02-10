@@ -31,7 +31,13 @@ const webpackConfig = {
     sourcePrefix: '  ',
   },
 
-  //todo, add resolve option for js/css/libs
+  resolve: {
+    modules: [
+      config.src,
+      config.components,
+      "node_modules"
+    ]
+  },
 
   // Switch loaders to debug or release mode
   // debug: config.isDevelopment,
