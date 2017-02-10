@@ -26,10 +26,9 @@
 
 
 /* import all css from components/pages here */
-
-/*@import 'components/header/header.css';*/
+@import 'pages/index/index.css'; 
+@import 'components/header/header.css';
 @import 'components/footer/footer.css';
-/*@import 'pages/index/index.css'; */
 
 
 
