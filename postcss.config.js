@@ -12,8 +12,8 @@ let postcssConfig = {
   plugins: [
     cssImport({
       root: config.root,
-      addModulesDirectories: [// node_modules exists in resolve paths by default and we don't need to place it here
-        config.components,//to import component styles, e.g. header/header.css
+      path: [// node_modules exists in resolve paths by default and we don't need to place it here
+        config.components,
         config.src,
         config.css.dir
       ]
