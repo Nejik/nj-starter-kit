@@ -87,7 +87,7 @@ gulp.task('html', function () {
             .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
 
-//hot reloading durinig development without webpack works much much faster, use it in usual html/css coding
+//hot reloading durinig development without webpack works much much faster, use it in usual html/css coding, not angular/react/etc projects
 gulp.task('css', function () {
   return gulp .src(config.css.src)
               .pipe(plumber({
