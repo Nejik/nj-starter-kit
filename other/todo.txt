@@ -1,5 +1,1 @@
-
-*добавить webpack иконку для тостов вебпака, вместо js
-* прикрутить postcss (https://github.com/postcss/postcss-loader/issues/92)
-* прикрутить extract text plugin
-*look at PR https://github.com/svg/svgo/pull/592
+*use plugin for svg, when it will be merged - https://github.com/svg/svgo/pull/592

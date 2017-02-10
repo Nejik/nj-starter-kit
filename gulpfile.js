@@ -240,7 +240,7 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
         notifier.notify({
           title: config.name,
           message: 'Webpack error',
-          icon: path.join(__dirname, 'other/js.png'),
+          icon: path.join(__dirname, 'other/webpack2.png'),
           sound: true,
         });
       } else {
