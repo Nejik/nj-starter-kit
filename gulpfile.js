@@ -221,7 +221,7 @@ gulp.task('images:svgColored', function () {
               .pipe(gulp.dest(config.svgColoredSprites.dist))
 })
 gulp.task('images:copy', function () {
-  return gulp .src(config.img.src)
+  return gulp .src(config.img.src, {since: gulp.lastRun('images:copy')})
               .pipe(plumber({errorHandler: function (error) {
                 console.log(error)
                 this.emit('end');
