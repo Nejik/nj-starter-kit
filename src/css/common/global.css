@@ -14,19 +14,16 @@ a {
   color: inherit;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
+
+  &:hover, &:focus, &:active {
+    text-decoration: underline;
+  }
 }
-a:hover,
-a:focus,
-a:active {
-  text-decoration: underline;
-}
-a:visited {}
-a:link {} 
 
 
-/* ::selection {
+/*::selection {
   text-shadow: none;
-} */
+}*/
 
 
 
