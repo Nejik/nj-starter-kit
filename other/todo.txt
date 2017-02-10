@@ -1,1 +1,0 @@
-*use plugin for svg, when it will be merged - https://github.com/svg/svgo/pull/592
