@@ -34,13 +34,15 @@ let paths = {
   css: {
     dir: root.resolve('src/css'),
     src: [root.resolve('src/css/styles.css')],
+    concat: 'styles.css',//final name of builded css file
     dist: dist,
-    webpackStylesName: 'webpack.styles.css',
+    webpackStyleName: 'webpack.styles.css',//temporary file with builded styles from webpack, after build it will be merged in main styles files
     watch: [root.resolve('src/**/*.css')]
   },
   
   js: {
     src: [root.resolve('src/app.js')],
+    concat: 'bundle.js',//final name of builded css file
     dist: dist
   },
   

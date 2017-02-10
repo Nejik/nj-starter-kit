@@ -4,8 +4,11 @@ let postcssConfig = require('./postcss.config.js');
 
 //common
 const del = require('del');
+const vinylPaths = require('vinyl-paths');
 const path = require('path')
 const gulp = require('gulp');
+const concat = require('gulp-concat');
+const rename = require('gulp-rename');
 const gutil = require('gulp-util');
 const gulpIf = require('gulp-if');
 const plumber = require('gulp-plumber');
@@ -14,9 +17,8 @@ const sourcemaps = require('gulp-sourcemaps');
 const notifier = require('node-notifier'); 
 
 //html
-const through = require('through2');
 const ejs = require('gulp-ejs');
-const assign = require('object-assign');
+
 
 //styles
 const postcss = require('gulp-postcss');
@@ -84,6 +86,7 @@ gulp.task('html', function () {
             .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
 
+//hot reloading durinig development without webpack works much much faster, use it in usual html/css coding
 gulp.task('css', function () {
   return gulp .src(config.css.src)
               .pipe(plumber({
@@ -102,8 +105,16 @@ gulp.task('css', function () {
               .pipe(gulpIf(config.isDevelopment, sourcemaps.init()))
               .pipe(postcss(postcssConfig.plugins))
               .pipe(gulpIf(config.isDevelopment, sourcemaps.write()))
+              .pipe(rename(config.css.concat))
               .pipe(gulp.dest(config.css.dist))
               .pipe(gulpIf(config.isDevelopment, bs.stream()))
+})
+
+//merge styles from gulp with styles from webpack
+gulp.task('cssMergeStyles', function (cb) {
+  return gulp .src([path.join(config.dist, config.css.concat), path.join(config.dist, config.css.webpackStyleName)])
+              .pipe(concat(config.css.concat))
+              .pipe(gulp.dest(config.css.dist))
 })
 
 gulp.task('webpack', function (callback) {
@@ -279,6 +290,6 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
 
 gulp.task('build', gulp.parallel('html','css','webpack','images'))
 
-gulp.task('prod', gulp.series(gulp.parallel('clean','setProduction'), 'build'))
+gulp.task('prod', gulp.series(gulp.parallel('clean','setProduction'), 'build', 'cssMergeStyles'))
 
 gulp.task('default', gulp.series('build', gulp.parallel('serve','watch')))
