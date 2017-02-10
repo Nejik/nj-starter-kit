@@ -13,12 +13,13 @@
 
 /* import global site styles, common for all pages */
 @import 'common/_custom_normalize.css';
+@import 'common/helpers.css';
 @import 'common/_variables.css';
 
 /* import project specific css */
+@import 'common/global.css';
 @import 'common/buttons.css';
 @import 'common/forms.css';
-@import 'common/global.css';
 
 
 
@@ -26,10 +27,9 @@
 
 
 /* import all css from components/pages here */
-
-/*@import 'components/header/header.css';*/
+@import 'pages/index/index.css'; 
+@import 'components/header/header.css';
 @import 'components/footer/footer.css';
-/*@import 'pages/index/index.css'; */
 
 
 
