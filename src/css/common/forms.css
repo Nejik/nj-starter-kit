@@ -3,24 +3,29 @@
 /* input, button, select, textarea are border-box by default from _custom_normalize.css */
 .input {
   
-}
+  &:hover, &:focus {
 
-.input:hover, .input:focus {
+  }
 
-}
-.input[disabled], .input:disabled {
+  &[disabled], &:disabled {
 
-}
-.input[readonly] {
+  }
 
-}
-.input::placeholder, textarea::placeholder {
-  
+  &[readonly] {
+
+  }
+
+  &::placeholder {
+    color:red;
+  }
 }
 
 textarea {
   padding:4px;
   
+  &::placeholder {
+    
+  }
 }
 
 
