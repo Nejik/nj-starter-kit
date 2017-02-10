@@ -26,7 +26,7 @@ let paths = {
   isDevelopment: isDevelopment,
   
   html: {
-    src: [root.resolve('src/*.ejs'), root.resolve('src/pages/*.ejs')],
+    src: [root.resolve('src/*.ejs'), root.resolve('src/pages/**/*.ejs')],
     dist: dist,
     watch: [root.resolve('src/**/*.ejs')]
   },

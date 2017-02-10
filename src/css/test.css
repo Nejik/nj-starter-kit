@@ -1,8 +1,0 @@
-@import 'test2.css';
-
-body {
-  color: red;
-  & a {
-    color:orange;
-  }
-}

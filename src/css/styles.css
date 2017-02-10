@@ -1,8 +1,8 @@
 /*!!! semicolons are very important !!!*/
 
 /* import here all vendor styles */
-/* @import 'vendor\jquery.bxslider.css'; */
-/* @import 'vendor\lightbox.css'; */
+/* @import 'vendor/jquery.bxslider.css'; */
+/* @import 'vendor/lightbox.css'; */
 
 
 /*in vendor.css we write our custom styles for vendor plugins (redefine or theme default plugin styles)*/
@@ -25,11 +25,11 @@
 
 
 
-/* import all css from components here */
+/* import all css from components/pages here */
 
 /*@import 'components/header/header.css';
 @import 'components/footer/footer.css';
-@import 'pages\index.css'; */
+@import 'pages/index/index.css'; */
 
 
 

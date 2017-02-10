@@ -60,7 +60,7 @@ gulp.task('setProduction', function (cb) {
 })
 
 gulp.task('html', function () {
-  return gulp.src(config.html.src)
+  return gulp.src(config.html.src, {since: gulp.lastRun('html')})
             .pipe(plumber({
               errorHandler: function (error) {
                 notifier.notify({
@@ -82,6 +82,7 @@ gulp.task('html', function () {
             }
             ))
             .on('error', gutil.log)
+            .pipe(rename({dirname: ''}))
             .pipe(gulp.dest(config.html.dist))
             .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
