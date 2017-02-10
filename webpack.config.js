@@ -75,12 +75,12 @@ const webpackConfig = {
     }),
   ],
 
-  // Options affecting the normal modules
   module: {
     rules: [
       {
         test: /.js?$/,
         loader: `babel-loader?${JSON.stringify(babelConfig)}`,
+        exclude: /node_modules/
       }
     ],
   }

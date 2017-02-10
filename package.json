@@ -2,7 +2,8 @@
   "name": "newproject",
   "version": "0.0.1",
   "dependencies": {
-    "normalize.css": "^5.0.0"
+    "normalize.css": "^5.0.0",
+    "svg4everybody": "^2.1.4"
   },
   "scripts": {
     "start": "gulp",
