@@ -263,7 +263,7 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
         serverStarted = true;
           
         bs.init({
-          open: false,
+          open: process.env.OPEN,
           port: process.env.PORT || 3000,
           ui: { port: Number(process.env.PORT || 3000) + 1 },
           server: {
