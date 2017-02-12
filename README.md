@@ -19,17 +19,9 @@ npm start
 ```
 npm start
 ```
-or
-```
-gulp
-```
 ### Production build
 ```
 npm run prod
-```
-or
-```
-gulp prod
 ```
 ### Run on other port
 ```
