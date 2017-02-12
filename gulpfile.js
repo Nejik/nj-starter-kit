@@ -4,7 +4,6 @@ let postcssConfig = require('./postcss.config.js');
 
 //common
 const del = require('del');
-const vinylPaths = require('vinyl-paths');
 const path = require('path')
 const gulp = require('gulp');
 const concat = require('gulp-concat');

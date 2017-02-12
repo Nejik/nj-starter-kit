@@ -42,7 +42,7 @@ let paths = {
   
   js: {
     src: [root.resolve('src/app.js')],
-    concat: 'bundle.js',//final name of builded css file
+    concat: 'bundle.js',//final name of builded js file
     dist: dist
   },
   
