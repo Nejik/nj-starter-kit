@@ -4,7 +4,8 @@ let postcssConfig = require('./postcss.config.js');
 
 //common
 const del = require('del');
-const path = require('path')
+const path = require('path');
+const fs = require('fs');
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
@@ -112,9 +113,15 @@ gulp.task('css', function () {
 
 //merge styles from gulp with styles from webpack
 gulp.task('cssMergeStyles', function (cb) {
-  return gulp .src([path.join(config.dist, config.css.concat), path.join(config.dist, config.css.webpackStyleName)])
+  let webpackCssFile = path.join(config.dist, config.css.webpackStyleName);
+  
+  if (fs.existsSync(webpackCssFile)) {
+    return gulp .src([path.join(config.dist, config.css.concat), webpackCssFile])
               .pipe(concat(config.css.concat))
               .pipe(gulp.dest(config.css.dist))
+  } else {
+    cb();
+  }
 })
 
 gulp.task('webpack', function (callback) {
