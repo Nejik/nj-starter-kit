@@ -41,6 +41,7 @@
     "postcss-inline-svg": "^2.3.0",
     "postcss-loader": "^1.2.2",
     "postcss-reporter": "^3.0.0",
+    "postcss-sprites": "^4.2.0",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
