@@ -4,13 +4,18 @@
 <%- include('/components/head/head.ejs') %>
 
 <body>
-  <div class="main-wrapper">
-    <div class="main-body">
+  <!-- We need 2 elements app and main-wrapper to make footer sticky in ie -->
+  <div class="app">
+    <div class="wrapper">
       <%- include('/components/header/header.ejs') %>
+      <main class="body">
+        <div class="inner">
+          app
+        </div>
+      </main>
+      <%- include('/components/footer/footer.ejs') %>
     </div>
   </div>
-  
-  <%- include('/components/footer/footer.ejs') %>
 </body>
 
 </html>
