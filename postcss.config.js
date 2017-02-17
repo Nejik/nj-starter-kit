@@ -33,11 +33,16 @@ let postcssConfig = {
         basePath: config.src,
         spritesmith: {
           padding: 5
+        },
+        filterBy: function(image) {
+          if (image.url.indexOf('/sprites/') === -1) {
+            return Promise.reject(new Error('Not in sprite folder.'));
+          }
+          return Promise.resolve();
         }
     })
   ]
 }
-console.log(config.img.dir)
 
 if (!config.isDevelopment) {
     postcssConfig.plugins.push(cssNano({

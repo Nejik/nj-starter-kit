@@ -40,18 +40,3 @@ hr {
 .inner {
   padding: 0 10px;
 }
-
-
-.danger, .warning {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-}
-.danger {
-  background-image: url('/img/danger.png');
-  color:red;
-}
-.warning {
-  background-image: url('/img/warning.png');
-
-}
