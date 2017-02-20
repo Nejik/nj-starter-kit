@@ -6,6 +6,7 @@ const pkg = require('./package.json');
 
 const isVerbose = argv.verbose;
 let isDevelopment = process.env.NODE_ENV !== "production" && argv.env !== "production";
+const port = process.env.PORT || 3000;
 
 const distString = isDevelopment ? 'dist' : 'prod';
 const dist = root.resolve(distString);
@@ -24,6 +25,7 @@ let paths = {
   
   isVerbose: isVerbose,
   isDevelopment: isDevelopment,
+  port: port,
   
   html: {
     src: [root.resolve('src/*.ejs'), root.resolve('src/pages/**/*.ejs')],
@@ -34,7 +36,9 @@ let paths = {
   css: {
     dir: root.resolve('src/css'),
     src: [root.resolve('src/css/styles.css')],
-    concat: 'styles.css',//final name of builded css file
+    concatGulp: 'gulp.styles.css',//final name of css file builed by gulp
+    concatWebpack: 'webpack.styles.css',//final name of css file builed by webpack
+    concatProd: 'styles.css', 
     dist: dist,
     webpackStyleName: 'webpack.styles.css',//temporary file with builded styles from webpack, after build it will be merged in main styles files
     watch: [root.resolve('src/**/*.css')]

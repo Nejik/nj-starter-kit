@@ -73,7 +73,9 @@ gulp.task('html', function () {
                 this.emit('end');
               }
             }))
-            .pipe(ejs({},//data, A hash object where each key corresponds to a variable in your template.
+            .pipe(ejs({//data, A hash object where each key corresponds to a variable in your template.
+              config: config
+            },
             {//options, A hash object for ejs options.
               root: config.src
             },
@@ -87,8 +89,20 @@ gulp.task('html', function () {
             .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
 
-//hot reloading durinig development without webpack works much much faster, use it in usual html/css coding, not angular/react/etc projects
-gulp.task('css', function () {
+gulp.task('css:createEmptyFiles', function (cb) {
+  //create styles empty placeholder files to avoid errors in console
+  if (!fs.existsSync(config.dist)){
+    fs.mkdirSync(config.dist);
+  }
+  fs.writeFileSync(path.join(config.dist, config.css.concatGulp), '');
+  fs.writeFileSync(path.join(config.dist, config.css.concatWebpack), '');
+
+  
+  cb();
+})
+
+//hot reloading durinig development without webpack works much much faster
+gulp.task('css:common', function () {
   return gulp .src(config.css.src)
               .pipe(plumber({
                 errorHandler: function (error) {
@@ -106,23 +120,20 @@ gulp.task('css', function () {
               .pipe(gulpIf(config.isDevelopment, sourcemaps.init()))
               .pipe(postcss(postcssConfig.plugins))
               .pipe(gulpIf(config.isDevelopment, sourcemaps.write()))
-              .pipe(rename(config.css.concat))
+              .pipe(rename(config.css.concatGulp))
               .pipe(gulp.dest(config.css.dist))
-              .pipe(gulpIf(config.isDevelopment, bs.stream()))
 })
 
-//merge styles from gulp with styles from webpack
-gulp.task('cssMergeStyles', function (cb) {
-  let webpackCssFile = path.join(config.dist, config.css.webpackStyleName);
-  
-  if (fs.existsSync(webpackCssFile)) {
-    return gulp .src([path.join(config.dist, config.css.concat), webpackCssFile])
-              .pipe(concat(config.css.concat))
+gulp.task('css:mergeStyles', function (cb) {
+  return gulp .src([path.join(config.dist, config.css.concatGulp), path.join(config.dist, config.css.concatWebpack)])
+              .pipe(concat(config.css.concatProd))
               .pipe(gulp.dest(config.css.dist))
-  } else {
-    cb();
-  }
+
 })
+
+gulp.task('css', gulp.series('css:createEmptyFiles', 'css:common'))
+
+
 
 gulp.task('webpack', function (callback) {
   webpack(webpackConfig, function(err, stats) {
@@ -239,9 +250,9 @@ gulp.task('images:copy', function () {
 gulp.task('images', gulp.parallel('images:copy','images:svg','images:svgColored'))
 
 gulp.task('watch', function () {
-  gulp.watch(config.html.watch, gulp.series('html'));
-  gulp.watch(config.css.watch, gulp.series('css'));
-
+  gulp.watch(config.html.watch, gulp.series('html'));//build and reload html
+  gulp.watch(config.css.watch, gulp.series('css:common'));//build css
+  gulp.watch("dist/*.css").on('change', bs.reload);//reload css
   gulp.watch(config.img.watch, gulp.series('images'));
 })
 
@@ -270,8 +281,8 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
           
         bs.init({
           open: process.env.OPEN,
-          port: process.env.PORT || 3000,
-          ui: { port: Number(process.env.PORT || 3000) + 1 },
+          port: config.port,
+          ui: { port: config.port + 1 },
           server: {
             baseDir: config.dist,
             middleware: [
@@ -295,8 +306,8 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
 
 
 
-gulp.task('build', gulp.parallel('html','css','webpack','images'))
+gulp.task('build', gulp.parallel('html', 'css', 'webpack','images'))
 
-gulp.task('prod', gulp.series(gulp.parallel('clean','setProduction'), 'build', 'cssMergeStyles'))
+gulp.task('prod', gulp.series(gulp.parallel('clean', 'setProduction'), 'build', 'css:mergeStyles'))
 
-gulp.task('default', gulp.series('build', gulp.parallel('serve','watch')))
+gulp.task('default', gulp.series('html', 'css', 'images', gulp.parallel('serve','watch')))

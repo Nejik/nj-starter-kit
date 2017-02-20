@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const AssetsPlugin = require('assets-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
 
 const config = require('./project.config.js');
@@ -35,6 +36,7 @@ const webpackConfig = {
     modules: [
       config.src,
       config.components,
+      config.css.dir,
       "node_modules"
     ]
   },
@@ -49,14 +51,14 @@ const webpackConfig = {
   // What information should be printed to the console
   stats: {
     colors: true,
-    reasons: config.isDevelopment,
-    hash: config.isVerbose,
-    version: config.isVerbose,
+    reasons: false,
+    hash: false,
+    version: false,
     timings: true,
-    chunks: config.isVerbose,
-    chunkModules: config.isVerbose,
-    cached: config.isVerbose,
-    cachedAssets: config.isVerbose,
+    chunks: false,
+    chunkModules: false,
+    cached: false,
+    cachedAssets: false,
   },
 
   // The list of plugins for Webpack compiler
@@ -73,6 +75,11 @@ const webpackConfig = {
       filename: 'assets.json',
       prettyPrint: true,
     }),
+    new WriteFilePlugin({
+      test: /\.css$/,
+      log: false
+    }),
+    new ExtractTextPlugin(config.css.concatWebpack)
   ],
 
   module: {
@@ -81,40 +88,46 @@ const webpackConfig = {
         test: /.js?$/,
         loader: `babel-loader?${JSON.stringify(babelConfig)}`,
         exclude: /node_modules/
+      },
+      {
+        test: /\.(svg|jpg|jpeg|png)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            }
+          }
+        ]
+      },
+      {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+              fallback: "style-loader",
+              use: [
+                {
+                  loader: 'css-loader',
+                  options: {
+                    url:false,
+                    sourceMap: config.isDevelopment,
+                    importLoaders: 1
+                  }
+                },
+                'postcss-loader'
+              ]
+            })
+      
       }
     ],
   }
 };
 
 if (config.isDevelopment) {
-  webpackConfig.entry.unshift('webpack-hot-middleware/client?overlay=false&reload=true&noInfo=true&overlay=false');
+  webpackConfig.entry.unshift('webpack-hot-middleware/client?overlay=false&reload=true&noInfo=true');
   webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
   webpackConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
-
-  webpackConfig.module.rules.push({
-     test: /.css$/,
-     use: [
-       'style-loader',
-       'css-loader?sourceMap=inline&importLoaders=1',
-       'postcss-loader'
-     ]
-  });
 } else {
   webpackConfig.plugins.push(new webpack.optimize.AggressiveMergingPlugin());
-
-  webpackConfig.plugins.push(new ExtractTextPlugin(config.css.webpackStyleName));
-  webpackConfig.module.rules.push({
-                                    test: /\.css$/,
-                                    use: ExtractTextPlugin.extract({
-                                            fallback: "style-loader",
-                                            use: [
-                                              'css-loader?importLoaders=1',
-                                              'postcss-loader'
-                                            ]
-                                          })
-                                    
-                                  });
-
   webpackConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: config.isVerbose } }));
 }
 

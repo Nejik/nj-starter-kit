@@ -34,6 +34,7 @@ let postcssConfig = {
         spritesmith: {
           padding: 5
         },
+        verbose: config.isVerbose,
         filterBy: function(image) {
           if (image.url.indexOf('/sprites/') === -1) {
             return Promise.reject(new Error('Not in sprite folder.'));
