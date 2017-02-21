@@ -40,28 +40,69 @@ gulp clean
 ## Html
 [EJS](http://ejs.co/) used for building HTML
 ## CSS
-PostCSS used for building CSS
+[PostCSS](https://github.com/postcss/postcss) used for building CSS
 ## JS
-Babel and Webpack2 used for building JavaScript
+[Babel](https://github.com/babel/babel) and [Webpack2](https://github.com/webpack/webpack) used for building JavaScript
 ## Images
-Images optimized by gulp-imagemin.
+Here we have few capabilities to work with images:
 
-SVG sprites builded by [https://github.com/jkphl/svg-sprite](https://github.com/jkphl/svg-sprite)
+* usual image, just put it in img folder and use it
+* Also we may want concatanate our small icons in sprites, here we have 2 ways:
+    1) vector icons (*.svg) *(preferred way)*
+        * If our icons shouldn't save their colors, and we want to style tem via css, we remove all fill/stroke styles from svg file 
+          and put icons in ```src/img/sprites/svg/``` and they will be processed to ```dist/img/icons.svg```         
+          Then use it in html:
+          ```html
+          <svg class='icon'>
+              <use xlink:href='img/icons.svg#down'></use>
+          </svg> 
+          ```
 
-All files from ```from src/img/sprites/svg``` processed to sprite ```dist/img/icons.svg```
+        * If our icons should save their colors *(logo for example)*, we should transfer all styles from ```<style>``` tag to attributes: example ```<path style="fill:red>```
+          and put icons in ```src/img/sprites/svgColored/``` and they will be processed to ```dist/img/iconsColored.svg```
 
-All files from ```from src/img/sprites/svgColored``` processed to sprite ```dist/img/iconsColored.svg```
+          Then use it in html:
+          ```html
+          <svg class='icon'>
+              <use xlink:href='img/iconsColored.svg#logo'></use>
+          </svg> 
+          ```
+          Powered by [gulp-svg-sprite](https://github.com/jkphl/gulp-svg-sprite)
+          
+          *Difference between ```icons.svg``` and ```iconsColored.svg``` is that in ```iconsColored.svg``` styles are not cutted.*
+    2) raster icons (*.png)
+        * just put your raster icons in ```src/img/sprites/``` and use them in usual way (images automatically will be processed to sprites by postcss plugins)
+            ```css
+            .test:before {
+                content:'';
+                width:10px;
+                height:15px;
+                background-image:url('img/sprites/icon.png');
+            }
+            ```
+        Powered by [postcss-sprites](https://github.com/2createStudio/postcss-sprites)
+          
+        *Difference between ```icons.svg``` and ```iconsColored.svg``` is that in ```iconsColored.svg``` styles are not cutted.*
 
-Difference between ```icons.svg and iconsColored.svg``` is that in iconsColored.svg styles are not cutted.
+If for some reason we want to [inline](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs) images, we have 2 ways:
+1) svg icons can be inlined and styled like this:
+    ```css
+    .up {
+        background: svg-load('img/arrow-up.svg', fill: #000, stroke: #fff);
 
-Than you can use svg sprite in html:
-```html
-<svg class='icon'>
-    <use xlink:href='img/icons.svg#down'></use>
-</svg> 
-<svg>
-    <use xlink:href='img/iconsColored.svg#logo'></use>
-</svg>
-```
+        &:hover {
+            background: svg-load('img/arrow-up.svg', fill: red, stroke: #fff);
+        }
+    }
+    ```
+    Powered by [postcss-inline-svg](https://github.com/TrySound/postcss-inline-svg)
+2) raster icons can be inlined like this: 
+    ```css
+    .foobar {
+      background: inline('img/foobar.png');
+    }
+    ```
+    Powered by [postcss-assets](https://github.com/borodean/postcss-assets)
 
 
+All images optimized by [gulp-imagemin](https://github.com/sindresorhus/gulp-imagemin)
