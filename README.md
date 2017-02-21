@@ -48,29 +48,31 @@ Here we have few capabilities to work with images:
 
 * usual image, just put it in img folder and use it
 * Also we may want concatanate our small icons in sprites, here we have 2 ways:
-    1) vector icons (*.svg) *(preferred way)*
-        * If our icons shouldn't save their colors, and we want to style tem via css, we remove all fill/stroke styles from svg file 
-          and put icons in ```src/img/sprites/svg/``` and they will be processed to ```dist/img/icons.svg```         
-          Then use it in html:
-          ```html
-          <svg class='icon'>
-              <use xlink:href='img/icons.svg#down'></use>
-          </svg> 
-          ```
 
-        * If our icons should save their colors *(logo for example)*, we should transfer all styles from ```<style>``` tag to attributes: example ```<path style="fill:red>```
-          and put icons in ```src/img/sprites/svgColored/``` and they will be processed to ```dist/img/iconsColored.svg```
-
-          Then use it in html:
-          ```html
-          <svg class='icon'>
-              <use xlink:href='img/iconsColored.svg#logo'></use>
-          </svg> 
-          ```
-          Powered by [gulp-svg-sprite](https://github.com/jkphl/gulp-svg-sprite)
+1) vector icons (.svg) *(preferred way)*
+* If our icons shouldn't save their colors, and we want to style tem via css, we remove all fill/stroke styles from svg file 
+    and put icons in ```src/img/sprites/svg/``` and they will be processed to ```dist/img/icons.svg```         
+    Then use it in html:
           
-          *Difference between ```icons.svg``` and ```iconsColored.svg``` is that in ```iconsColored.svg``` styles are not cutted.*
-    2) raster icons (*.png)
+    ```html
+    <svg class='icon'>
+        <use xlink:href='img/icons.svg#down'></use>
+    </svg> 
+    ```
+
+* If our icons should save their colors *(logo for example)*, we should transfer all styles from ```<style>``` tag to attributes:       example ```<path style="fill:red>```
+    and put icons in ```src/img/sprites/svgColored/``` and they will be processed to ```dist/img/iconsColored.svg```
+    Then use it in html:
+    ```html
+    <svg class='icon'>
+        <use xlink:href='img/iconsColored.svg#logo'></use>
+    </svg> 
+    ```
+    Powered by [gulp-svg-sprite](https://github.com/jkphl/gulp-svg-sprite)
+          
+    *Difference between ```icons.svg``` and ```iconsColored.svg``` is that in ```iconsColored.svg``` styles are not cutted.*
+ 
+ 2) raster icons (*.png)
         * just put your raster icons in ```src/img/sprites/``` and use them in usual way (images automatically will be processed to sprites by postcss plugins)
             ```css
             .test:before {
