@@ -112,3 +112,7 @@ Powered by [postcss-assets](https://github.com/borodean/postcss-assets)
 
 
 All images optimized by [gulp-imagemin](https://github.com/sindresorhus/gulp-imagemin)
+
+## License
+
+MIT ©
