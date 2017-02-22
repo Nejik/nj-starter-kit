@@ -40,7 +40,6 @@ let paths = {
     concatWebpack: 'webpack.styles.css',//final name of css file builed by webpack
     concatProd: 'styles.css', 
     dist: dist,
-    webpackStyleName: 'webpack.styles.css',//temporary file with builded styles from webpack, after build it will be merged in main styles files
     watch: [root.resolve('src/**/*.css')]
   },
   
