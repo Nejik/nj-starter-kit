@@ -259,6 +259,11 @@ gulp.task('images:copy', function () {
 })
 gulp.task('images', gulp.parallel('images:copy', 'images:svg', 'images:svgColored'))
 
+gulp.task('copy', function () {
+  return gulp .src(config.copy)
+              .pipe(gulp.dest(config.dist))
+})
+
 gulp.task('watch', function () {
   gulp.watch(config.html.watch, gulp.series('html'));//build and reload html
   gulp.watch(config.css.watch, gulp.series('css:common'));//build css
@@ -316,8 +321,8 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
 
 
 
-gulp.task('build', gulp.parallel('html', 'css', 'webpack', 'images'))
+gulp.task('build', gulp.parallel('html', 'css', 'webpack', 'images', 'copy'))
 
 gulp.task('prod', gulp.series(gulp.parallel('clean', 'setProduction'), 'build', 'css:mergeStyles'))
 
-gulp.task('default', gulp.series('html', 'css', 'images', gulp.parallel('serve', 'watch')))
+gulp.task('default', gulp.series('html', 'css', 'images', 'copy', gulp.parallel('serve', 'watch')))

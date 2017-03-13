@@ -31,6 +31,7 @@ let paths = {
   isDevelopment: isDevelopment,
   port: port,
   
+  copy: [root.resolve('src/favicon.ico'),root.resolve('src/apple-touch-icon.png')],
   html: {
     src: [root.resolve('src/*.ejs'), root.resolve('src/pages/**/*.ejs')],
     dist: dist,
