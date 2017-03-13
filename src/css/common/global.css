@@ -2,10 +2,6 @@
    Default settings
    ========================================================================== */
 
-html, input, select, textarea, button {
-  font:14px/1.428 Arial, "Geneva CY", sans-serif;
-  color:#222;
-}
 html,body {
   background-color: #fff;
 }

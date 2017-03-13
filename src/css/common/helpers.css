@@ -68,6 +68,9 @@
 .p5{padding:5px !important}.pt5{padding-top:5px !important} .pr5{padding-right:5px !important} .pb5{padding-bottom:5px !important} .pl5{padding-left:5px !important}
 .pn,.p0{padding:0 !important}.ptn,.pt0{padding-top:0 !important} .prn,.pr0{padding-right:0 !important} .pbn,.pb0{padding-bottom:0 !important} .pln,.pl0{padding-left:0 !important}
 
+.fz10 {font-size: 10px !important}.fz12 {font-size: 12px !important}.fz14 {font-size: 14px !important}.fz16 {font-size: 16px !important}.fz18 {font-size: 18px !important}.fz20 {font-size: 20px !important}
+.fz22 {font-size: 22px !important}.fz24 {font-size: 24px !important}.fz26 {font-size: 26px !important}.fz28 {font-size: 28px !important}.fz30 {font-size: 30px !important}.fz32 {font-size: 32px !important}
+.fz34 {font-size: 34px !important}.fz36 {font-size: 36px !important}.fz38 {font-size: 38px !important}.fz40 {font-size: 40px !important}.fz42 {font-size: 42px !important}.fz44 {font-size: 44px !important}
 
 /*<ul class="justify"><li>1</li><li>2</li></ul>*/
 /*li should be closed*/

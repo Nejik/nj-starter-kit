@@ -6,11 +6,15 @@ const pkg = require('./package.json');
 
 const isVerbose = argv.verbose;
 let isDevelopment = process.env.NODE_ENV !== "production" && argv.env !== "production";
-const port = process.env.PORT || 3000;
+const port = process.env.PORT|| argv.port || 3000;
 
-const distString = isDevelopment ? 'dist' : 'prod';
+let distString;
+if (argv.serve) {
+  distString = argv.serve;
+} else {
+  distString = isDevelopment ? 'dist' : 'prod';
+}
 const dist = root.resolve(distString);
-
 
 let paths = {
   name: pkg.name,

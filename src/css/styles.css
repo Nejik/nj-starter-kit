@@ -3,6 +3,8 @@
 /* import here all default/reset styles */
 @import "normalize.css";
 
+@import 'common/_variables.css';
+
 /*in vendor.css we import other vendor css files and write our custom styles for vendor plugins (redefine or theme default plugin styles)*/
 @import 'vendor/vendor.css';
 
@@ -10,7 +12,7 @@
 /* import global site styles, common for all pages */
 @import 'common/_custom_normalize.css';
 @import 'common/helpers.css';
-@import 'common/_variables.css';
+@import 'common/typography.css';
 
 /* import project specific css */
 @import 'common/global.css';

@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "scripts": {
     "start": "gulp",
-    "prod": "gulp prod"
+    "prod": "gulp prod",
+    "serve": "gulp serve --serve=prod"
   },
   "babel": {
     "presets": [

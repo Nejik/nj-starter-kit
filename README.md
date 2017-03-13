@@ -8,7 +8,7 @@ git clone https://github.com/Nejik/nj-starter-kit.git new-project && cd new-proj
 ```
 ### Install modules
 ```
-npm i
+npm i -g gulpjs/gulp#4.0 && npm i
 ```
 ### Run
 ```

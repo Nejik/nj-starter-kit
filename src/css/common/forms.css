@@ -16,7 +16,12 @@
   }
 
   &::placeholder {
-    color:red;
+    
+  }
+
+  &--block {
+    display: block;
+    width: 100%;
   }
 }
 
