@@ -48,6 +48,7 @@ debug.log
 .sass-cache
 .sublime-workspace
 .git
+.idea
 .vscode
 node_modules
 dist
