@@ -260,7 +260,7 @@ gulp.task('images:copy', function () {
 gulp.task('images', gulp.parallel('images:copy', 'images:svg', 'images:svgColored'))
 
 gulp.task('copy', function () {
-  return gulp .src(config.copy)
+  return gulp .src(config.copy, {read:false})
               .pipe(gulp.dest(config.dist))
 })
 
