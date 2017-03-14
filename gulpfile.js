@@ -130,6 +130,9 @@ gulp.task('css:mergeStyles', function (cb) {
     .pipe(gulp.dest(config.css.dist))
 
 })
+gulp.task('css:cleanFiles', function () {
+  return del([path.join(config.dist, config.css.concatGulp), path.join(config.dist, config.css.concatWebpack)])
+})
 
 gulp.task('css', gulp.series('css:createEmptyFiles', 'css:common'))
 
@@ -323,6 +326,6 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
 
 gulp.task('build', gulp.parallel('html', 'css', 'webpack', 'images', 'copy'))
 
-gulp.task('prod', gulp.series(gulp.parallel('clean', 'setProduction'), 'build', 'css:mergeStyles'))
+gulp.task('prod', gulp.series(gulp.parallel('clean', 'setProduction'), 'build', 'css:mergeStyles', 'css:cleanFiles'))
 
 gulp.task('default', gulp.series('html', 'css', 'images', 'copy', gulp.parallel('serve', 'watch')))
