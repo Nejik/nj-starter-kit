@@ -4,7 +4,7 @@
   "scripts": {
     "start": "gulp",
     "prod": "gulp prod",
-    "serve": "gulp serve --serve=prod"
+    "serve": "gulp check"
   },
   "babel": {
     "presets": [

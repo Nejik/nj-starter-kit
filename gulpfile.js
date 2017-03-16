@@ -313,6 +313,16 @@ gulp.task('serve', function (cb) {//serve contains js task, because of webpack i
     }
   });
 })
+gulp.task('check', function() {
+  return bs.init({
+    open: process.env.OPEN,
+    port: config.port,
+    ui: { port: config.port + 1 },
+    server: {
+      baseDir: 'prod',
+    },
+  });
+})
 
 
 
