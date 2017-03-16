@@ -8,7 +8,7 @@ const isVerbose = argv.verbose;
 let isDevelopment = process.env.NODE_ENV !== "production" && argv.env !== "production";
 const port = process.env.PORT|| argv.port || 3000;
 
-let distString = isDevelopment ? 'dist' : 'prod';;
+let distString = isDevelopment ? 'build' : 'dist';;
 const dist = root.resolve(distString);
 
 let paths = {

@@ -39,7 +39,7 @@ global.HMR = true;
 
 
 gulp.task('clean', function () {
-  return del(['dist', 'prod'])
+  return del(['build', 'dist'])
 })
 
 gulp.task('setProduction', function (cb) {
@@ -270,7 +270,7 @@ gulp.task('copy', function () {
 gulp.task('watch', function () {
   gulp.watch(config.html.watch, gulp.series('html'));//build and reload html
   gulp.watch(config.css.watch, gulp.series('css:common'));//build css
-  gulp.watch("dist/*.css").on('change', bs.reload);//reload css
+  gulp.watch("build/*.css").on('change', bs.reload);//reload css
   gulp.watch(config.img.watch, gulp.series('images'));
 })
 
@@ -319,7 +319,7 @@ gulp.task('check', function() {
     port: config.port,
     ui: { port: config.port + 1 },
     server: {
-      baseDir: 'prod',
+      baseDir: 'dist',
     },
   });
 })

@@ -51,6 +51,6 @@ debug.log
 .idea
 .vscode
 node_modules
-dist
+build
 design
 backup

@@ -31,7 +31,7 @@ PORT=9000 npm start
 ```
 OPEN=true npm start
 ```
-### Remove dist and prod folders
+### Remove build and dist folders
 ```
 gulp clean
 ```
