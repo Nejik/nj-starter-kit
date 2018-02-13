@@ -1,0 +1,123 @@
+/* ==========================================================================
+  Default settings (custom normalize)
+  ========================================================================== */
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+iframe {
+  border: 0;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  overflow-y:scroll;
+  -webkit-text-size-adjust: 100%; /* iOS 8+ (from ress.css) */
+}
+
+
+hr {display:block;height:0;line-height:0;padding:0;margin:1em 0;border:0;border-top:1px solid #ccc}
+dl,menu,ol,ul {margin: 0;padding:0}
+ul,ol{
+  list-style: none;
+}
+table {width:100%;font-size:inherit}
+img,object,embed,iframe,video {max-width: 100%}
+img{width:auto\9;height:auto}
+figure {margin: 0}
+
+abbr[title]{cursor: help;border-bottom:1px dotted #999999}
+del {text-decoration: line-through}
+p,h1,h2,h3,h4,h5,h6 {margin: 0}
+
+
+input[type="radio"],input[type="checkbox"] {vertical-align: baseline;margin-right:3px};
+
+input,
+button,
+select,
+textarea {
+  /*Remove all `margin`s so our classes don't have to do it themselves.*/
+  margin: 0;
+  /*iOS adds rounded borders by default*/
+  border-radius: 0;
+
+  box-sizing: border-box;
+}
+textarea {
+  resize: vertical; /* Specify textarea resizability */
+}
+
+input[placeholder]          {text-overflow:ellipsis;}
+input::-webkit-input-placeholder     {text-overflow:ellipsis;}
+input::-moz-placeholder      {text-overflow:ellipsis;} 
+input:-ms-input-placeholder {text-overflow:ellipsis;}
+
+input[type="number"] {
+  width: auto; /* Firefox 36+ */
+}
+/*remove IE clear buttons*/
+::-ms-clear { 
+  width:0;
+  height:0;
+  display: none; 
+}
+::-ms-reveal {
+  width:0;
+  height:0;
+  display: none;
+}
+
+/**
+ * Suppress the focus outline on elements that cannot be accessed via keyboard.
+ * This prevents an unwanted focus outline from appearing around elements that
+ * might still respond to pointer events.
+ */
+
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+/*iOS "clickable elements" fix for role="button"
+
+Fixes "clickability" issue (and more generally, the firing of events such as focus as well)
+for traditionally non-focusable elements with role="button"
+see https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile*/
+[role="button"] {
+  cursor: pointer;
+}
+
+/*Always hide an element with the `hidden` HTML attribute (from PureCSS).*/
+[hidden] {
+  display: none !important;
+}
+
+a {
+  background-color: transparent; /* Remove the gray background on active links in IE 10 */
+  -webkit-text-decoration-skip: objects; /* Remove gaps in links underline in iOS 8+ and Safari 8+ */
+}
+
+* {
+  background-repeat: no-repeat;
+}

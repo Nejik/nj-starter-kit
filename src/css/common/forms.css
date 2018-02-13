@@ -1,0 +1,48 @@
+/*default styles*/
+
+/* input, button, select, textarea are border-box by default from _custom_normalize.css */
+.input {
+  
+  &:hover, &:focus {
+
+  }
+
+  &[disabled], &:disabled {
+
+  }
+
+  &[readonly] {
+
+  }
+
+  &::placeholder {
+    
+  }
+
+  &--block {
+    display: block;
+    width: 100%;
+  }
+}
+
+textarea {
+  padding:4px;
+  
+  &::placeholder {
+    
+  }
+}
+
+
+
+/*from sanitize*/
+/*select{-moz-appearance:none;-webkit-appearance:none}
+select::-ms-expand{display:none}
+select::-ms-value{color:currentColor}*/
+
+.valid {
+    
+}
+.invalid {
+    
+}
