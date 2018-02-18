@@ -1,3 +1,4 @@
 (function() {
-  console.log('my app!');
+  let app = 'new app';
+  console.log(app);
 })();
