@@ -31,7 +31,8 @@
     "postcss-inline-svg": "^3.0.0",
     "postcss-reporter": "^5.0.0",
     "postcss-sprites": "^4.2.1",
-    "through2": "^2.0.3"
+    "through2": "^2.0.3",
+    "webpack": "^3.11.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

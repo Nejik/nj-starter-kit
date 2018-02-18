@@ -61,11 +61,7 @@ function getConfig() {
       watch: 'src/img/sprites/svg/**/*.svg'
     },
 
-    js: {
-      src: 'src/app.js',
-      concat: 'bundle.js',//final name of builded js file
-      dist: dist
-    },
+    //js config in webpack.config.js file
   }
 }
 

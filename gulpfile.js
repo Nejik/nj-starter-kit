@@ -1,3 +1,9 @@
+const getConfig = require('./project.config.js');
+let config = getConfig();
+
+const postcssConfig = require('./postcss.config.js');
+const webpackConfig = require('./webpack.config.js');
+
 const gulp = require('gulp');
 const through2 = require('through2').obj;
 const rename = require('gulp-rename');
@@ -19,6 +25,9 @@ const postcss = require('gulp-postcss');
 const imagemin = require('gulp-imagemin');
 const svgSprite = require('gulp-svg-sprite');
 
+//js
+const webpack = require('webpack');
+
 //server
 let serverStarted = false;
 const bs = require('browser-sync').create();
@@ -26,9 +35,7 @@ const bs = require('browser-sync').create();
 
 
 
-let getConfig = require('./project.config.js');
-let config = getConfig();
-const postcssConfig = require('./postcss.config.js');
+
 
 
 
@@ -197,6 +204,22 @@ gulp.task('serve', function (cb) {
     });
   }
 })
+gulp.task('webpack', function (callback) {
+  if (config.isDevelopment) {
+    webpackConfig.watch = true;
+  } else {
+    webpackConfig.watch = false;
+  }
+  let webpackInstance = webpack(webpackConfig, function (err, stats) {//for some reason we need here callback...
+    callback();
+  })
+  if (config.isDevelopment) {
+    webpackInstance.compiler.plugin("done", function() {
+       bs.reload()
+    });
+  }
+  
+})
 
 gulp.task('watch', function () {
   gulp.watch(config.html.watch, gulp.series('html'));// build and reload html
@@ -206,6 +229,6 @@ gulp.task('watch', function () {
 })
 
 
-gulp.task('dev', gulp.series(gulp.parallel('html', 'css', 'images:copy', 'copy'), gulp.parallel('serve', 'watch')))
+gulp.task('dev', gulp.series(gulp.parallel('html', 'css', 'webpack', 'images:copy', 'copy'), gulp.parallel('serve', 'watch')))
 
 gulp.task('default', gulp.series('dev'))
