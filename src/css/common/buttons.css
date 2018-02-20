@@ -1,14 +1,15 @@
 .btn {
   display: inline-block;
-  margin-bottom: 0; /* For input.btn*/
-  background-image: none; /* Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214*/
+  margin-bottom: 0; /* For input.btn */
+  background-image: none; /* Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214 */
   white-space: nowrap;
 
-  &:hover, &:focus {
-
+  &:hover,
+  &:focus {
   }
-  &:active, &--active {
 
+  &:active,
+  &--active {
   }
 
   &--block {

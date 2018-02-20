@@ -38,6 +38,8 @@
     "postcss-inline-svg": "^3.0.0",
     "postcss-reporter": "^5.0.0",
     "postcss-sprites": "^4.2.1",
+    "stylelint": "^9.0.0",
+    "stylelint-config-standard": "^18.1.0",
     "through2": "^2.0.3",
     "webpack": "^3.11.0"
   },

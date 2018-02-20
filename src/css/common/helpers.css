@@ -5,12 +5,23 @@
   height: 1em;
   font-size: 25px;
   fill: currentColor;
-  /*vertical-align: -0.125em;*/
+
+  /* vertical-align: -0.125em; */
   transition: fill 250ms, color 250ms, stroke 250ms;
 }
 
-.clearfix:before,.clearfix:after {content: " ";display: table}.clearfix:after {clear: both}
+.clearfix::before,
+.clearfix::after {
+  content: " ";
+  display: table;
+}
 
+.clearfix::after {
+  clear: both;
+}
+
+
+/* stylelint-disable */
 .clear, .cl{clear:both !important} .clearB, .clb{clear:both !important} .clearL, .cll{clear:left !important} .clearR, .clr{clear:right !important} .clearN, .cln {clear: none !important}
 .fll{float:left !important} .flr{float:right !important} .fln{float: none !important}
 .tac{text-align:center !important} .tal{text-align:left !important} .tar{text-align:right !important}
@@ -31,17 +42,6 @@
 .wa{width: auto !important}.w100{width:100% !important}
 .ha{height:auto !important}.h100{height:100% !important}
 .lh1 {line-height:1 !important}
-
-.black {color:black !important}
-.white {color:white !important}
-.red {color:red !important}
-.green {color:green !important}
-.blue {color:blue !important}
-.cyan {color:cyan !important}
-.yellow {color:yellow !important}
-.lightgray {color:#ccc !important}
-.gray {color:#999 !important}
-.darkgray {color:#666 !important}
 
 .m50{margin:50px !important} .mt50{margin-top:50px !important} .mr50{margin-right:50px !important} .mb50{margin-bottom:50px !important} .ml50{margin-left:50px !important}
 .m45{margin:45px !important} .mt45{margin-top:45px !important} .mr45{margin-right:45px !important} .mb45{margin-bottom:45px !important} .ml45{margin-left:45px !important}
@@ -73,46 +73,7 @@
 
 .small{font-size:80% !important}
 .big{font-size:120% !important}
-
-/*<ul class="justify"><li>1</li><li>2</li></ul>*/
-/*li should be closed*/
-.justify {
-  text-align: justify;
-  
-  /* null parent el*/
-  line-height: 0;
-  font-size: 1px; /* 1px for Opera */
-  
-  /* fix for IE6-7*/        
-  text-justify: newspaper;
-  zoom:1;
-  
-  /* last line fix*/     
-  text-align-last: justify;   
-}
-.justify:after {
-  width: 100%; 
-  height: 0px;
-  visibility: hidden;
-  overflow: hidden;
-  content: '';
-  display: inline-block;
-}
-.justify li  {
-  display: inline-block;
-  text-align: left;
-  
-  /*restore children, except the last*/
-  line-height: normal;
-  font-size: 14px;
-  
-  /*Opera fix*/
-  vertical-align: top; 
-  
-  /* inline-block for IE6-7*/
-  /*display : inline;
-  zoom : 1;*/
-}
+/* stylelint-enable */
 
 /* Borrowed from H5BP based on Hiding content for accessibility by Jonathan Snook. */
 .visually-hidden {
@@ -125,6 +86,7 @@
   position: absolute;
   width: 1px;
 }
+
 /* Extends the .visually-hidden class to allow the element to be focusable when navigated to via the keyboard. Borrowed from H5BP. */
 .visually-hidden.focusable:active,
 .visually-hidden.focusable:focus {

@@ -1,30 +1,31 @@
-/*variables can be defined only in :root*/
+/* variables can be defined only in :root */
 :root {
   /*Variables*/
   --color-white: #fff;
   --color-black: #000;
 
-  /*Custom Sets of Properties for apply*/
-  /*--font-light: {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+  /* Custom Sets of Properties for apply */
+
+  /* --font-light: {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: 300;
-  }*/
+  } */
 
   /* by default we use min width */
   @custom-media --sm (width >= 768px);
   @custom-media --md (width >= 992px);
   @custom-media --lg (width >= 1200px);
-  
+
   /* but maybe we will need max width... */
   @custom-media --sm-m (width < 768px);
   @custom-media --md-m (width < 992px);
   @custom-media --lg-m (width < 1200px);
 
-  /*@media (--md) {
+  /* @media (--md) {
     background-image: none;
-  }*/
+  } */
 
+  /* example with min and max width */
 
-  /*example with min and max width*/
-  /*@custom-media --test-query (500px <= width <= 1200px);*/
+  /* @custom-media --test-query (500px <= width <= 1200px); */
 }

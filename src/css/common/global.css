@@ -2,7 +2,8 @@
    Default settings
    ========================================================================== */
 
-html,body {
+html,
+body {
   background-color: #fff;
 }
 
@@ -11,7 +12,9 @@ a {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 
-  &:hover, &:focus, &:active {
+  &:hover,
+  &:focus,
+  &:active {
     text-decoration: underline;
   }
 }
@@ -20,19 +23,21 @@ hr {
   border-color: #ccc;
 }
 
-
 /* ==========================================================================
    Global styles
    ========================================================================== */
-#app, .wrapper {
+#app,
+.wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
 .body {
   width: 100%;
   flex: 1 0 auto;
 }
+
 .inner {
   padding: 0 10px;
 }
