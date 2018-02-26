@@ -215,7 +215,6 @@ gulp.task('webpack', function (callback) {
   })
   if (config.isDevelopment) {
     webpackInstance.compiler.plugin("done", function() {
-      console.log('js budle build');
        bs.reload()
     });
   }

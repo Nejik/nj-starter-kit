@@ -5,6 +5,7 @@ let config = getConfig();
 const cssImport = require('postcss-import');
 const cssAssets  = require('postcss-assets');
 const cssNext = require('postcss-cssnext');
+const cssNested = require('postcss-nested');
 const cssNano = require('cssnano');
 const cssMqPacker = require('css-mqpacker');
 const cssInlineSvg = require('postcss-inline-svg');
@@ -21,7 +22,12 @@ let postcssConfig = {
         config.css.dir
       ]
     }),
-    cssNext,
+    cssNested(),
+    cssNext({
+      features: {
+        nesting: false
+      }
+    }),
     // cssAssets({
     //   basePath: config.src,
     //   loadPaths: [config.img.dir]
