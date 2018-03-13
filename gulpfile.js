@@ -22,7 +22,7 @@ const ejs = require('gulp-ejs');
 const postcss = require('gulp-postcss');
 
 //img
-const imagemin = require('gulp-imagemin');
+const imagemin = require('gulp-image');
 const svgSprite = require('gulp-svg-sprite');
 
 //js
@@ -195,12 +195,8 @@ gulp.task('serve', function (cb) {
       ui: { port: config.port + 1 },
       server: {
         baseDir: config.dist,
-        // middleware: [
-        //   webpackDevMiddleware,
-        //   require('webpack-hot-middleware')(compiler),
-        //   require('connect-history-api-fallback')(),
-        // ],
       },
+      notify: false
     });
   }
 })
@@ -225,7 +221,7 @@ gulp.task('watch', function () {
   gulp.watch(config.html.watch, gulp.series('html'));// build and reload html
   gulp.watch(config.css.watch, gulp.series('css'));// build and reload css
   gulp.watch(config.img.watch, gulp.series('images:copy'));// copy images
-  gulp.watch(config.svgSprites.watch, gulp.series('images:svg'));// copy images
+  gulp.watch(config.svgSprites.watch, gulp.series('images:svg'));// create svg sprite
 })
 
 
