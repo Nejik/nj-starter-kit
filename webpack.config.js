@@ -1,19 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
 const pkg = require('./package.json');
-const getConfig = require('./project.config.js');
-let config = getConfig();
-
-const babelConfig = Object.assign({}, pkg.babel, {
-  babelrc: false,
-  cacheDirectory: true,
-});
+const config = require('./project.config.js');
 
 module.exports = {
   entry: './src/js/app.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build')
+    path: path.resolve(__dirname, config.dist)
   },
   devtool: config.isDevelopment ? 'eval' : false,
   mode: config.isDevelopment ? 'development' : 'production',

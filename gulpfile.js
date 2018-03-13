@@ -1,8 +1,7 @@
-const getConfig = require('./project.config.js');
-let config = getConfig();
+let config = require('./project.config.js');
 
-const postcssConfig = require('./postcss.config.js');
-const webpackConfig = require('./webpack.config.js');
+let postcssConfig = require('./postcss.config.js');
+let webpackConfig = require('./webpack.config.js');
 
 const gulp = require('gulp');
 const through2 = require('through2').obj;
@@ -39,14 +38,6 @@ const bs = require('browser-sync').create();
 
 
 
-
-// process.env.NODE_ENV = 'production';
-// gulp.task('set-dev-node-env', function () {
-//   return process.env.NODE_ENV = 'development';
-// });
-// gulp.task('set-prod-node-env', function () {
-//   return process.env.NODE_ENV = 'production';
-// });
 
 gulp.task('clean', function () {
   return del(['build', 'dist'])
@@ -224,7 +215,25 @@ gulp.task('watch', function () {
   gulp.watch(config.svgSprites.watch, gulp.series('images:svg'));// create svg sprite
 })
 
+gulp.task('setProduction', function (cb) {
+  config = require('./project.config.js');
+  //set production mode
+  process.env.NODE_ENV = 'production';
+  //clear cache
+  delete require.cache[require.resolve('./project.config.js')]
+  delete require.cache[require.resolve('./webpack.config.js')]
+  delete require.cache[require.resolve('./postcss.config.js')]
+  //set new configs for production mode
+  config = require('./project.config.js');
+  webpackConfig = require('./webpack.config.js');
+  postcssConfig = require('./postcss.config.js');
+
+  cb();
+})
+
 
 gulp.task('dev', gulp.series(gulp.parallel('html', 'css', 'webpack', 'images:copy', 'images:svg', 'copy'), gulp.parallel('serve', 'watch')))
+
+gulp.task('build', gulp.series('setProduction', gulp.parallel('html', 'css', 'webpack', 'images:optimize', 'images:svg', 'copy')));
 
 gulp.task('default', gulp.series('dev'))

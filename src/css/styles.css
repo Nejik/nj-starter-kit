@@ -21,7 +21,3 @@
 /* import all css from components here */
 @import "components/header/header.css";
 @import "components/footer/footer.css";
-
-html {
-  color: blue;
-}

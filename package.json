@@ -1,8 +1,13 @@
 {
   "name": "njstarter",
   "version": "2.0.0",
-  "description": "Common site builder",
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "author": "Nejik",
+  "description": "Common site builder",
   "email": "nejikrofl@gmail.com",
   "license": "MIT",
   "main": "index.js",
@@ -46,9 +51,6 @@
     "through2": "^2.0.3",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.11"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "babel": {
     "presets": [

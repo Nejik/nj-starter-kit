@@ -1,6 +1,4 @@
-let getConfig = require('./project.config.js');
-let config = getConfig();
-
+let config = require('./project.config.js');
 
 const cssImport = require('postcss-import');
 const cssAssets  = require('postcss-assets');
@@ -32,7 +30,7 @@ let postcssConfig = {
     //   basePath: config.src,
     //   loadPaths: [config.img.dir]
     // }),
-    cssInlineSvg({ 
+    cssInlineSvg({
       path: config.src,
       removeFill: true
     }),
