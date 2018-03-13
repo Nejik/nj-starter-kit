@@ -2,6 +2,9 @@
   "name": "njstarter",
   "version": "2.0.0",
   "description": "Common site builder",
+  "author": "Nejik",
+  "email": "nejikrofl@gmail.com",
+  "license": "MIT",
   "main": "index.js",
   "dependencies": {
     "gulp": "^4.0.0",
@@ -10,9 +13,8 @@
   "devDependencies": {
     "app-root-path": "^2.0.1",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.23.6",
     "browser-sync-webpack-plugin": "^2.0.1",
     "css-mqpacker": "^6.0.2",
@@ -42,7 +44,8 @@
     "stylelint": "^9.0.0",
     "stylelint-config-standard": "^18.1.0",
     "through2": "^2.0.3",
-    "webpack": "^3.11.0"
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.11"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -53,7 +56,5 @@
       "stage-0"
     ],
     "plugins": []
-  },
-  "author": "nejik",
-  "license": "MIT"
+  }
 }

@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const pkg = require('./package.json');
 const getConfig = require('./project.config.js');
@@ -11,8 +12,11 @@ const babelConfig = Object.assign({}, pkg.babel, {
 module.exports = {
   entry: './src/js/app.js',
   output: {
-    filename: './build/bundle.js'
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'build')
   },
+  devtool: config.isDevelopment ? 'eval' : false,
+  mode: config.isDevelopment ? 'development' : 'production',
   resolve: {
     modules: [
       config.src,
@@ -20,20 +24,14 @@ module.exports = {
       'node_modules'
     ]
   },
-  devtool: config.isDevelopment ? 'eval' : false,
-  plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': config.isDevelopment ? '"development"' : '"production"',
-      __DEV__: config.isDevelopment,
-    })
-  ],
   module: {
     rules: [
       {
-        test: /.js?$/,
-        loader: `babel-loader?${JSON.stringify(babelConfig)}`,
-        exclude: /node_modules/
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
       }
     ]
   }
