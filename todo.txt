@@ -1,1 +1,2 @@
+* sourcemap у js
 * по watch-у свг файлов дергается copy

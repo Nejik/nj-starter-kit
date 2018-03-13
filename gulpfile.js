@@ -215,10 +215,10 @@ gulp.task('webpack', function (callback) {
   })
   if (config.isDevelopment) {
     webpackInstance.compiler.plugin("done", function() {
-       bs.reload()
+      bs.reload()
     });
   }
-  
+
 })
 
 gulp.task('watch', function () {
@@ -229,6 +229,6 @@ gulp.task('watch', function () {
 })
 
 
-gulp.task('dev', gulp.series(gulp.parallel('html', 'css', 'webpack', 'images:copy', 'copy'), gulp.parallel('serve', 'watch')))
+gulp.task('dev', gulp.series(gulp.parallel('html', 'css', 'webpack', 'images:copy', 'images:svg', 'copy'), gulp.parallel('serve', 'watch')))
 
 gulp.task('default', gulp.series('dev'))
