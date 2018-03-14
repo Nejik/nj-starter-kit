@@ -10,6 +10,7 @@ const cssInlineSvg = require('postcss-inline-svg');
 const cssReporter = require('postcss-reporter');
 const cssSprite = require('postcss-sprites');
 
+// console.log(config.src);
 let postcssConfig = {
   plugins: [
     cssImport({
@@ -26,10 +27,10 @@ let postcssConfig = {
         nesting: false
       }
     }),
-    // cssAssets({
-    //   basePath: config.src,
-    //   loadPaths: [config.img.dir]
-    // }),
+    cssAssets({
+      basePath: config.src,
+      loadPaths: [config.img.dir]
+    }),
     cssInlineSvg({
       path: config.src,
       removeFill: true
@@ -37,24 +38,25 @@ let postcssConfig = {
     cssMqPacker({
       sort: true
     }),
-    cssReporter({
-      throwError:true
-    }),
-    // cssSprite({
-    //     stylesheetPath : config.css.dist,
-    //     spritePath: config.img.dist,
-    //     basePath: config.src,
-    //     spritesmith: {
-    //       padding: 5
-    //     },
-    //     verbose: config.isVerbose,
-    //     filterBy: function(image) {
-    //       if (image.url.indexOf('/sprites/') === -1) {
-    //         return Promise.reject(new Error('Not in sprite folder.'));
-    //       }
-    //       return Promise.resolve();
-    //     }
-    // })
+    // cssReporter({
+    //   throwError:true
+    // }),
+    cssSprite({
+        stylesheetPath : config.css.dist,
+        spritePath: config.img.dist,
+        basePath: config.src,
+        spritesmith: {
+          padding: 2
+        },
+        verbose: config.isDevelopment ? false: true,
+        filterBy: function(image) {
+          console.log(image.url);
+          if (image.url.indexOf('/sprites/') === -1) {
+            return Promise.reject(new Error('Not in sprite folder.'));
+          }
+          return Promise.resolve();
+        }
+    })
   ]
 }
 

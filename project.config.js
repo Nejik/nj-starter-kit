@@ -1,5 +1,4 @@
 const root = require('app-root-path');
-const pkg = require('./package.json');
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -7,7 +6,6 @@ const distString = isDevelopment ? 'build' : 'dist',
       dist = root.resolve(distString);
 
 const config = {
-  name: pkg.name,
   isDevelopment: isDevelopment,
   port: process.env.PORT || 3000,
   root: root,
@@ -21,6 +19,7 @@ const config = {
       src: [
         'src/**/*',
         '!src/vendor/**',
+        '!src/js/**',
         '!src/components/**',
         '!src/**/*.html'
       ],
@@ -39,7 +38,7 @@ const config = {
   css: {
       src: 'src/css/styles.css',
       concat: 'styles.css',
-      dist: dist,
+      dist: root.resolve(distString+'/css'),
       dir: root.resolve('src/css'),
       watch: 'src/**/*.css'
   },
