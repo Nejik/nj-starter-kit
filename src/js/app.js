@@ -2,6 +2,6 @@
 
 import 'vendor/vendor.js';
 
-;(function () {
+(function () {
 
 }());

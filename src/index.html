@@ -1,19 +1,21 @@
 <!doctype html>
 <html lang="en">
 <%- include('/components/head.html', {title:'Project starter kit'}) %>
-<body>
-  <!-- We need 2 elements app and wrapper to make footer sticky in ie -->
-  <div class="app">
-    <div class="wrapper">
-      <%- include('/components/header/header.html') %>
-        <main class="body">
-          <div class="inner">
-            app
-          </div>
-        </main>
-        <%- include('/components/footer/footer.html') %>
+
+  <body>
+    <!-- We need 2 elements app and wrapper to make footer sticky in ie -->
+    <div class="app">
+      <div class="wrapper">
+        <%- include('/components/header/header.html') %>
+          <main class="body">
+            <div class="inner">
+              app
+            </div>
+          </main>
+          <%- include('/components/footer/footer.html') %>
+      </div>
     </div>
-  </div>
-</body>
-<%- include('/components/scripts.html') %>
+  </body>
+  <%- include('/components/scripts.html') %>
+
 </html>

@@ -6,6 +6,10 @@
 		"no-console": 0,
     "no-debugger": 0,
     "spaced-comment": 0,
-    "comma-dangle": 0
+    "comma-dangle": 0,
+    "strict": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "import/extensions":0
 	}
 }
