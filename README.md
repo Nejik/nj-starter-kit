@@ -35,6 +35,37 @@ gulp clean
 
 ## Html
 [EJS](http://ejs.co/) used for building HTML
+
+Mainly ejs using just for importing component files.
+```
+<!-- simple include -->
+<%- include('/components/header/header.html') %>
+
+<!-- pass variables in included file -->
+<%- include('/components/header/header.html', {active: 'main'}) %>
+```
+P.S. All variables saved in `locals` object inside template, you can acces variables without `locals.*` , but it brings more errors in some situations, just use `locals.variable` inside templates.
+
+Also you can use some other constructions like (more in documentation: [EJS](http://ejs.co/)):
+```
+<%= locals.title || "New project" %>
+
+<% if (locals.title) { %>
+  <%= locals.title %>
+<% } %>
+
+<% if (locals.title) { %>
+  <%= locals.title %>
+<% } else { %>
+  <%- "Default title" %>
+<% } %>
+
+<% if (locals.title) { %>
+  <%= locals.title %>
+<% } else if (locals.title2 === 'success') { %>
+  <%- locals.title2 %>
+<% } %>
+```
 ## CSS
 [PostCSS](https://github.com/postcss/postcss) used for building CSS
 ## JS
