@@ -47,6 +47,7 @@ a {
 hr {
   border-color: #ccc;
 }
+
 /* Helpers */
 .icon {
   max-width: 100%;
@@ -69,6 +70,7 @@ hr {
 .clearfix::after {
   clear: both;
 }
+
 /* Borrowed from H5BP based on Hiding content for accessibility by Jonathan Snook. */
 .visually-hidden {
   border: 0;
