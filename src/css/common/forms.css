@@ -1,4 +1,24 @@
-/* default styles */
+/* buttons */
+.btn {
+  display: inline-block;
+  margin-bottom: 0; /* For input.btn */
+  background-image: none; /* Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214 */
+  white-space: nowrap;
+
+  &:hover,
+  &:focus {
+  }
+
+  &:active,
+  &--active {
+  }
+
+  &--block {
+    display: block;
+    width: 100%;
+  }
+}
+
 
 /* input, button, select, textarea are border-box by default from _custom_normalize.css */
 .input {

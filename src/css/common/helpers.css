@@ -1,26 +1,3 @@
-.icon {
-  max-width: 100%;
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  font-size: 25px;
-  fill: currentColor;
-
-  /* vertical-align: -0.125em; */
-  transition: fill 250ms, color 250ms, stroke 250ms;
-}
-
-.clearfix::before,
-.clearfix::after {
-  content: " ";
-  display: table;
-}
-
-.clearfix::after {
-  clear: both;
-}
-
-
 /* stylelint-disable */
 .clear, .cl{clear:both !important} .clearB, .clb{clear:both !important} .clearL, .cll{clear:left !important} .clearR, .clr{clear:right !important} .clearN, .cln {clear: none !important}
 .fll{float:left !important} .flr{float:right !important} .fln{float: none !important}
@@ -74,26 +51,3 @@
 .small{font-size:80% !important}
 .big{font-size:120% !important}
 /* stylelint-enable */
-
-/* Borrowed from H5BP based on Hiding content for accessibility by Jonathan Snook. */
-.visually-hidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-/* Extends the .visually-hidden class to allow the element to be focusable when navigated to via the keyboard. Borrowed from H5BP. */
-.visually-hidden.focusable:active,
-.visually-hidden.focusable:focus {
-  clip: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-  width: auto;
-}

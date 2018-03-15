@@ -1,10 +1,35 @@
-/* ==========================================================================
-   Default settings
-   ========================================================================== */
-
+/* Default settings */
 html,
-body {
-  background-color: #fff;
+input,
+select,
+textarea,
+button {
+  font: 14px/1.428 Arial, "Geneva CY", sans-serif;
+  color: #222;
+}
+
+h1,
+.h1 {
+}
+
+h2,
+.h2 {
+}
+
+h3,
+.h3 {
+}
+
+h4,
+.h4 {
+}
+
+h5,
+.h5 {
+}
+
+h6,
+.h6 {
 }
 
 a {
@@ -15,18 +40,63 @@ a {
   &:hover,
   &:focus,
   &:active {
-    text-decoration: underline;
+
   }
 }
 
 hr {
   border-color: #ccc;
 }
+/* Helpers */
+.icon {
+  max-width: 100%;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  font-size: 25px;
+  fill: currentColor;
 
-/* ==========================================================================
-   Global styles
-   ========================================================================== */
-#app,
+  /* vertical-align: -0.125em; */
+  transition: fill 250ms, color 250ms, stroke 250ms;
+}
+
+.clearfix::before,
+.clearfix::after {
+  content: " ";
+  display: table;
+}
+
+.clearfix::after {
+  clear: both;
+}
+/* Borrowed from H5BP based on Hiding content for accessibility by Jonathan Snook. */
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* Extends the .visually-hidden class to allow the element to be focusable when navigated to via the keyboard. Borrowed from H5BP. */
+.visually-hidden.focusable:active,
+.visually-hidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}
+
+
+/* Global styles */
+
+/*default always bottom page footer styles */
+.app,
 .wrapper {
   display: flex;
   flex-direction: column;
