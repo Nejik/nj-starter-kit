@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const config = require('./project.config.js');
 
 module.exports = {
@@ -23,7 +22,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       }
     ]
