@@ -31,6 +31,16 @@ OPEN=true npm start
 ```
 gulp clean
 ```
+### Mobile testing
+Since we use [browsersync](https://browsersync.io/), it allows us to test mobiles locally.
+After running you will see in console `External` url, that you can use on mobiles (they should be in same network).
+
+```
+[Browsersync] Access URLs:
+ ----------------------------------
+       Local: http://localhost:3000
+    External: http://10.0.75.1:3000
+```
 
 
 ## Html
