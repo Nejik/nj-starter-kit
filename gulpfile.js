@@ -232,6 +232,7 @@ gulp.task('setProduction', function (cb) {
 })
 
 
+// gulp.task('dev', gulp.series(gulp.parallel('html', 'css', 'webpack', 'images:copy', 'images:svg', 'copy'), gulp.parallel('serve', 'watch')))
 gulp.task('dev', gulp.series(gulp.parallel('html', 'css', 'webpack', 'images:copy', 'images:svg', 'copy'), gulp.parallel('serve', 'watch')))
 
 gulp.task('build', gulp.series('setProduction', gulp.parallel('html', 'css', 'webpack', 'images:optimize', 'images:svg', 'copy')));

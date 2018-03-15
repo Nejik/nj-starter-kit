@@ -2,7 +2,7 @@ const path = require('path');
 const config = require('./project.config.js');
 
 module.exports = {
-  entry: './src/js/app.js',
+  entry: './src/js/app.ts',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, config.dist)
@@ -14,17 +14,16 @@ module.exports = {
       config.src,
       config.components,
       'node_modules'
-    ]
+    ],
+    extensions: ['.tsx', '.ts', '.js']
   },
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
       }
     ]
-  }
+  },
 };
