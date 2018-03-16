@@ -11,8 +11,6 @@ const newer = require('gulp-newer');
 const sourcemaps = require('gulp-sourcemaps');
 const plumber = require('gulp-plumber');
 const del = require('del');
-const path = require('path');
-const notifier = require('node-notifier');
 
 //html
 const ejs = require('gulp-ejs');
@@ -32,13 +30,6 @@ let serverStarted = false;
 const bs = require('browser-sync').create();
 
 
-
-
-
-
-
-
-
 gulp.task('clean', function () {
   return del(['build', 'dist'])
 })
@@ -51,9 +42,10 @@ gulp.task('html', function () {
         this.emit('end');
       }
     }))
-    .pipe(ejs({//data, A hash object where each key corresponds to a variable in your template.
-      config: config // get acces to config inside ejs templates (isDevelopment and etc)
-    },
+    .pipe(ejs(
+      {//data, A hash object where each key corresponds to a variable in your template.
+        config: config // get acces to config inside ejs templates (isDevelopment and etc)
+      },
       {//options, A hash object for ejs options.
         root: config.src
       },
@@ -63,7 +55,7 @@ gulp.task('html', function () {
     ))
     .pipe(gulp.dest(config.html.dist))
     .pipe(gulpIf(config.isDevelopment, bs.stream()))
-})
+});
 
 gulp.task('css', function () {
   return gulp.src(config.css.src)
@@ -89,11 +81,14 @@ gulp.task('copy', function () {
         this.emit('end');
       }
     }))
-    .pipe(through2(function (file, enc, callback) {// copy all files from assets folder besides css folder, but css/fonts will be copied to dest folder
+    // eslint-disable-next-line max-len
+    .pipe(through2(function (file, enc, callback) { // copy all files from assets folder besides css folder, but css/fonts will be copied to dest folder
+      // eslint-disable-next-line no-param-reassign
       file.path = file.path.replace('assets\\', '').replace('\\assets', '')
       let returnedFile = null;
       if (file.path.indexOf('\\css') !== -1) {
         if (file.path.indexOf('\\css\\fonts\\') !== -1) {
+          // eslint-disable-next-line no-param-reassign
           file.path = file.path.replace('\\css\\fonts\\', '\\fonts\\')
           returnedFile = file
         } else {
@@ -157,7 +152,8 @@ gulp.task('images:svg', function () {
         this.emit('end');
       }
     }))
-    .pipe(through2(function (file, enc, callback) {//remove empty files that leads error in svgSprite
+    // eslint-disable-next-line max-len
+    .pipe(through2(function (file, enc, callback) { //remove empty files that leads error in svgSprite
       callback(null, file.stat && file.stat.size ? file : null);
     }))
     .pipe(svgSprite(svgSpriteConfig))
@@ -176,7 +172,7 @@ gulp.task('images:optimize', function () {
     .pipe(gulp.dest(config.img.dist))
 })
 
-gulp.task('serve', function (cb) {
+gulp.task('serve', function () {
   if (!serverStarted) {
     serverStarted = true;
 
@@ -197,15 +193,15 @@ gulp.task('webpack', function (callback) {
   } else {
     webpackConfig.watch = false;
   }
-  let webpackInstance = webpack(webpackConfig, function (err, stats) {//for some reason we need here callback...
+  // eslint-disable-next-line max-len, no-unused-vars
+  const webpackInstance = webpack(webpackConfig, function (err, stats) { //for some reason we need here callback...
     callback();
   })
   if (config.isDevelopment) {
-    webpackInstance.compiler.plugin("done", function() {
+    webpackInstance.compiler.plugin("done", function () {
       bs.reload()
     });
   }
-
 })
 
 gulp.task('watch', function () {
@@ -216,6 +212,7 @@ gulp.task('watch', function () {
 })
 
 gulp.task('setProduction', function (cb) {
+  // eslint-disable-next-line global-require
   config = require('./project.config.js');
   //set production mode
   process.env.NODE_ENV = 'production';
@@ -224,8 +221,11 @@ gulp.task('setProduction', function (cb) {
   delete require.cache[require.resolve('./webpack.config.js')]
   delete require.cache[require.resolve('./postcss.config.js')]
   //set new configs for production mode
+  // eslint-disable-next-line global-require
   config = require('./project.config.js');
+  // eslint-disable-next-line global-require
   webpackConfig = require('./webpack.config.js');
+  // eslint-disable-next-line global-require
   postcssConfig = require('./postcss.config.js');
 
   cb();
