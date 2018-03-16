@@ -12,23 +12,22 @@ const sourcemaps = require('gulp-sourcemaps');
 const plumber = require('gulp-plumber');
 const del = require('del');
 
-//html
+// html
 const ejs = require('gulp-ejs');
 
-//css
+// css
 const postcss = require('gulp-postcss');
 
-//img
+// img
 const imagemin = require('gulp-image');
 const svgSprite = require('gulp-svg-sprite');
 
-//js
+// js
 const webpack = require('webpack');
 
-//server
+// server
 let serverStarted = false;
 const bs = require('browser-sync').create();
-
 
 gulp.task('clean', function () {
   return del(['build', 'dist'])
@@ -43,13 +42,13 @@ gulp.task('html', function () {
       }
     }))
     .pipe(ejs(
-      {//data, A hash object where each key corresponds to a variable in your template.
+      {// data, A hash object where each key corresponds to a variable in your template.
         config: config // get acces to config inside ejs templates (isDevelopment and etc)
       },
-      {//options, A hash object for ejs options.
+      {// options, A hash object for ejs options.
         root: config.src
       },
-      {//settings, A hash object to configure the plugin.
+      {// settings, A hash object to configure the plugin.
         ext: '.html'
       }
     ))
@@ -153,7 +152,7 @@ gulp.task('images:svg', function () {
       }
     }))
     // eslint-disable-next-line max-len
-    .pipe(through2(function (file, enc, callback) { //remove empty files that leads error in svgSprite
+    .pipe(through2(function (file, enc, callback) { // remove empty files that leads error in svgSprite
       callback(null, file.stat && file.stat.size ? file : null);
     }))
     .pipe(svgSprite(svgSpriteConfig))
@@ -181,7 +180,7 @@ gulp.task('serve', function () {
       port: config.port,
       ui: { port: config.port + 1 },
       server: {
-        baseDir: config.dist,
+        baseDir: config.dist
       },
       notify: false
     });
@@ -194,11 +193,11 @@ gulp.task('webpack', function (callback) {
     webpackConfig.watch = false;
   }
   // eslint-disable-next-line max-len, no-unused-vars
-  const webpackInstance = webpack(webpackConfig, function (err, stats) { //for some reason we need here callback...
+  const webpackInstance = webpack(webpackConfig, function (err, stats) { // for some reason we need here callback...
     callback();
   })
   if (config.isDevelopment) {
-    webpackInstance.compiler.plugin("done", function () {
+    webpackInstance.compiler.plugin('done', function () {
       bs.reload()
     });
   }
@@ -214,13 +213,13 @@ gulp.task('watch', function () {
 gulp.task('setProduction', function (cb) {
   // eslint-disable-next-line global-require
   config = require('./project.config.js');
-  //set production mode
+  // set production mode
   process.env.NODE_ENV = 'production';
-  //clear cache
+  // clear cache
   delete require.cache[require.resolve('./project.config.js')]
   delete require.cache[require.resolve('./webpack.config.js')]
   delete require.cache[require.resolve('./postcss.config.js')]
-  //set new configs for production mode
+  // set new configs for production mode
   // eslint-disable-next-line global-require
   config = require('./project.config.js');
   // eslint-disable-next-line global-require
@@ -230,7 +229,6 @@ gulp.task('setProduction', function (cb) {
 
   cb();
 })
-
 
 gulp.task('dev', gulp.series(gulp.parallel('html', 'css', 'webpack', 'images:copy', 'images:svg', 'copy'), gulp.parallel('serve', 'watch')))
 
