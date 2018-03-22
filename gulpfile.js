@@ -5,7 +5,6 @@ let webpackConfig = require('./webpack.config.js');
 
 const gulp = require('gulp');
 const through2 = require('through2').obj;
-const rename = require('gulp-rename');
 const gulpIf = require('gulp-if');
 const newer = require('gulp-newer');
 const sourcemaps = require('gulp-sourcemaps');
@@ -67,9 +66,13 @@ gulp.task('css', function () {
     .pipe(gulpIf(config.isDevelopment, sourcemaps.init()))
     .pipe(postcss(postcssConfig.plugins))
     .pipe(gulpIf(config.isDevelopment, sourcemaps.write()))
-    .pipe(rename(config.css.concat))
     .pipe(gulp.dest(config.css.dist))
     .pipe(gulpIf(config.isDevelopment, bs.stream()))
+})
+
+gulp.task('fonts', function () {
+  return gulp.src(config.fonts.src)
+    .pipe(gulp.dest(config.dist))
 })
 
 gulp.task('copy', function () {
@@ -79,24 +82,6 @@ gulp.task('copy', function () {
         console.log(error);
         this.emit('end');
       }
-    }))
-    // eslint-disable-next-line max-len
-    .pipe(through2(function (file, enc, callback) { // copy all files from assets folder besides css folder, but css/fonts will be copied to dest folder
-      // eslint-disable-next-line no-param-reassign
-      file.path = file.path.replace('assets\\', '').replace('\\assets', '')
-      let returnedFile = null;
-      if (file.path.indexOf('\\css') !== -1) {
-        if (file.path.indexOf('\\css\\fonts\\') !== -1) {
-          // eslint-disable-next-line no-param-reassign
-          file.path = file.path.replace('\\css\\fonts\\', '\\fonts\\')
-          returnedFile = file
-        } else {
-          returnedFile = null
-        }
-      } else {
-        returnedFile = file
-      }
-      callback(null, returnedFile);
     }))
     .pipe(gulp.dest(config.copy.dist))
 })
@@ -205,6 +190,7 @@ gulp.task('webpack', function (callback) {
 
 gulp.task('watch', function () {
   gulp.watch(config.html.watch, gulp.series('html'));// build and reload html
+  gulp.watch(config.fonts.watch, gulp.series('fonts'));
   gulp.watch(config.css.watch, gulp.series('css'));// build and reload css
   gulp.watch(config.img.watch, gulp.series('images:copy'));// copy images
   gulp.watch(config.svgSprites.watch, gulp.series('images:svg'));// create svg sprite
@@ -230,8 +216,8 @@ gulp.task('setProduction', function (cb) {
   cb();
 })
 
-gulp.task('dev', gulp.series(gulp.parallel('html', 'css', 'webpack', 'images:copy', 'images:svg', 'copy'), gulp.parallel('serve', 'watch')))
+gulp.task('dev', gulp.series('clean', gulp.parallel('html', 'fonts', 'css', 'webpack', 'images:copy', 'images:svg', 'copy'), gulp.parallel('serve', 'watch')))
 
-gulp.task('build', gulp.series('setProduction', gulp.parallel('html', 'css', 'webpack', 'images:optimize', 'images:svg', 'copy')));
+gulp.task('build', gulp.series('clean', 'setProduction', gulp.parallel('html', 'fonts', 'css', 'webpack', 'images:optimize', 'images:svg', 'copy')));
 
 gulp.task('default', gulp.series('dev'))

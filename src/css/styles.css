@@ -1,5 +1,3 @@
-/* !!! semicolons are very important !!! */
-
 /* import here all default/reset styles */
 @import "normalize.css";
 @import "common/_custom_normalize.css";
