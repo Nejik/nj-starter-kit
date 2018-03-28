@@ -50,7 +50,6 @@ let postcssConfig = {
         },
         verbose: config.isDevelopment ? false: true,
         filterBy: function(image) {
-          console.log(image.url);
           if (image.url.indexOf('/sprites/') === -1) {
             return Promise.reject(new Error('Not in sprite folder.'));
           }
