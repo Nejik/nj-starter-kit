@@ -10,6 +10,7 @@ const newer = require('gulp-newer');
 const sourcemaps = require('gulp-sourcemaps');
 const plumber = require('gulp-plumber');
 const del = require('del');
+const log = require('fancy-log');
 
 // html
 const ejs = require('gulp-ejs');
@@ -179,6 +180,19 @@ gulp.task('webpack', function (callback) {
   }
   // eslint-disable-next-line max-len, no-unused-vars
   const webpackInstance = webpack(webpackConfig, function (err, stats) { // for some reason we need here callback...
+    if (err) {
+      log.error(err);
+      if (err.details) {
+        log.error(err.details);
+      }
+      return;
+    }
+    // const info = stats.toJson();
+    if (stats.hasErrors() || stats.hasWarnings()) {
+      log(stats.toString({
+        errorDetails: true,
+        warnings: true}))
+    }
     callback();
   })
   if (config.isDevelopment) {
