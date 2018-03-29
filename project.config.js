@@ -46,10 +46,12 @@ const config = {
   },
 
   img: {
-    src: "src/img/**/*.{jpg,jpeg,png,svg,gif,webp}",
+    // src: "src/img/**/*.{jpg,jpeg,png,svg,gif,webp}",
+    src: "src/img/**/*.*",
     dir: root.resolve("src/img"),
     dist: root.resolve(distString + "/img"),
-    watch: "src/img/**/*.{jpg,jpeg,png,svg,gif,webp}"
+    // watch: "src/img/**/*.{jpg,jpeg,png,svg,gif,webp}"
+    watch: "src/img/**/*.*"
   },
 
   svgSprites: {

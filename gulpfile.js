@@ -1,5 +1,4 @@
 let config = require('./project.config.js');
-
 let postcssConfig = require('./postcss.config.js');
 let webpackConfig = require('./webpack.config.js');
 
