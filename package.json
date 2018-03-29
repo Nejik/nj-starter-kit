@@ -1,14 +1,14 @@
 {
   "name": "njstarter",
   "version": "2.0.0",
+  "author": "Nejik",
+  "description": "Common site builder",
+  "email": "nejikrofl@gmail.com",
   "scripts": {
     "start": "gulp",
     "build": "gulp build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Nejik",
-  "description": "Common site builder",
-  "email": "nejikrofl@gmail.com",
   "license": "MIT",
   "main": "index.js",
   "dependencies": {
@@ -26,7 +26,6 @@
     "cssnano": "^3.10.0",
     "del": "^3.0.0",
     "eslint": "^4.18.0",
-    "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-node": "^6.0.1",
