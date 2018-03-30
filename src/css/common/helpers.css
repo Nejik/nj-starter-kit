@@ -13,7 +13,6 @@
 .posr{position:relative !important} .poss{position:static !important} .posa{position:absolute !important} .posf{position: fixed !important}
 .bgn{background:none !important}
 .curp{cursor:pointer !important} .cura{cursor:auto !important} .curt{cursor:text !important} .curd{cursor:default !important}
-/*.hidden{display:none;visibility:hidden}*/
 .ovv{overflow: visible !important} .ovh{overflow: hidden !important} .ova{overflow: auto !important} .ovs{overflow: scroll !important}
 .ttu{text-transform: uppercase !important}.ttl{text-transform: lowercase !important}.ttc{text-transform: capitalize !important}.ttn{text-transform: none !important}
 .wa{width: auto !important}.w100{width:100% !important}
