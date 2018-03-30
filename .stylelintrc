@@ -25,5 +25,8 @@
     "comment-empty-line-before": null,
     "no-descending-specificity": null,
     "selector-pseudo-element-colon-notation": null
-  }
+  },
+  "ignoreFiles": [
+    "*.md"
+  ]
 }
