@@ -4,7 +4,7 @@ input,
 select,
 textarea,
 button {
-  font: 14px/1.428 Arial, "Geneva CY", sans-serif;
+  font: 14px/1.428 Arial, 'Geneva CY', sans-serif;
   color: #222;
 }
 
@@ -62,7 +62,7 @@ hr {
 
 .clearfix::before,
 .clearfix::after {
-  content: " ";
+  content: ' ';
   display: table;
 }
 

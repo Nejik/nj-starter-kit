@@ -10,6 +10,7 @@ module.exports = {
   devtool: config.isDevelopment ? 'cheap-module-eval-source-map' : false,
   mode: config.isDevelopment ? 'development' : 'production',
   resolve: {
+    // prettier-ignore
     modules: [
       config.src,
       config.components,

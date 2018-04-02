@@ -19,7 +19,6 @@
   }
 }
 
-
 /* input, button, select, textarea are border-box by default from _custom_normalize.css */
 .input {
   &:hover,

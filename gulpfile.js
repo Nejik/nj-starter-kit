@@ -28,77 +28,93 @@ const webpack = require('webpack');
 let serverStarted = false;
 const bs = require('browser-sync').create();
 
-gulp.task('clean', function () {
-  return del(['build', 'dist'])
-})
-
-gulp.task('html', function () {
-  return gulp.src(config.html.src)
-    .pipe(plumber({
-      errorHandler: function (error) {
-        console.log(error);
-        this.emit('end');
-      }
-    }))
-    .pipe(ejs(
-      {// data, A hash object where each key corresponds to a variable in your template.
-        config: config // get acces to config inside ejs templates (isDevelopment and etc)
-      },
-      {// options, A hash object for ejs options.
-        root: config.src
-      },
-      {// settings, A hash object to configure the plugin.
-        ext: '.html'
-      }
-    ))
-    .pipe(gulp.dest(config.html.dist))
-    .pipe(gulpIf(config.isDevelopment, bs.stream()))
+gulp.task('clean', function() {
+  return del(['build', 'dist']);
 });
 
-gulp.task('css', function () {
-  return gulp.src(config.css.src)
-    .pipe(plumber({
-      errorHandler: function (error) {
-        console.log(error);
-        this.emit('end');
-      }
-    }))
+gulp.task('html', function() {
+  return gulp
+    .src(config.html.src)
+    .pipe(
+      plumber({
+        errorHandler: function(error) {
+          console.log(error);
+          this.emit('end');
+        }
+      })
+    )
+    .pipe(
+      ejs(
+        {
+          // data, A hash object where each key corresponds to a variable in your template.
+          config: config // get acces to config inside ejs templates (isDevelopment and etc)
+        },
+        {
+          // options, A hash object for ejs options.
+          root: config.src
+        },
+        {
+          // settings, A hash object to configure the plugin.
+          ext: '.html'
+        }
+      )
+    )
+    .pipe(gulp.dest(config.html.dist))
+    .pipe(gulpIf(config.isDevelopment, bs.stream()));
+});
+
+gulp.task('css', function() {
+  return gulp
+    .src(config.css.src)
+    .pipe(
+      plumber({
+        errorHandler: function(error) {
+          console.log(error);
+          this.emit('end');
+        }
+      })
+    )
     .pipe(gulpIf(config.isDevelopment, sourcemaps.init()))
     .pipe(postcss(postcssConfig.plugins))
     .pipe(gulpIf(config.isDevelopment, sourcemaps.write()))
     .pipe(gulp.dest(config.css.dist))
-    .pipe(gulpIf(config.isDevelopment, bs.stream()))
-})
+    .pipe(gulpIf(config.isDevelopment, bs.stream()));
+});
 
-gulp.task('fonts', function () {
-  return gulp.src(config.fonts.src)
-    .pipe(gulp.dest(config.dist))
-})
+gulp.task('fonts', function() {
+  return gulp.src(config.fonts.src).pipe(gulp.dest(config.dist));
+});
 
-gulp.task('copy', function () {
-  return gulp.src(config.copy.src)
-    .pipe(plumber({
-      errorHandler: function (error) {
-        console.log(error);
-        this.emit('end');
-      }
-    }))
-    .pipe(gulp.dest(config.copy.dist))
-})
+gulp.task('copy', function() {
+  return gulp
+    .src(config.copy.src)
+    .pipe(
+      plumber({
+        errorHandler: function(error) {
+          console.log(error);
+          this.emit('end');
+        }
+      })
+    )
+    .pipe(gulp.dest(config.copy.dist));
+});
 
-gulp.task('images:copy', function () {
-  return gulp.src(config.img.src)
-    .pipe(plumber({
-      errorHandler: function (error) {
-        console.log(error);
-        this.emit('end');
-      }
-    }))
+gulp.task('images:copy', function() {
+  return gulp
+    .src(config.img.src)
+    .pipe(
+      plumber({
+        errorHandler: function(error) {
+          console.log(error);
+          this.emit('end');
+        }
+      })
+    )
     .pipe(newer(config.img.dist))
-    .pipe(gulp.dest(config.img.dist))
-})
+    .pipe(gulp.dest(config.img.dist));
+});
 
-gulp.task('images:svg', function () {
+gulp.task('images:svg', function() {
   const svgSpriteConfig = {
     mode: {
       inline: true,
@@ -127,36 +143,47 @@ gulp.task('images:svg', function () {
       xmlDeclaration: false, // strip out the XML attribute
       doctypeDeclaration: false // don't include the !DOCTYPE declaration
     }
-  }
+  };
 
-  return gulp.src(config.svgSprites.src)
-    .pipe(plumber({
-      errorHandler: function (error) {
-        console.log(error);
-        this.emit('end');
-      }
-    }))
-    // eslint-disable-next-line max-len
-    .pipe(through2(function (file, enc, callback) { // remove empty files that leads error in svgSprite
-      callback(null, file.stat && file.stat.size ? file : null);
-    }))
-    .pipe(svgSprite(svgSpriteConfig))
-    .pipe(gulp.dest(config.svgSprites.dist))
-})
+  return (
+    gulp
+      .src(config.svgSprites.src)
+      .pipe(
+        plumber({
+          errorHandler: function(error) {
+            console.log(error);
+            this.emit('end');
+          }
+        })
+      )
+      // eslint-disable-next-line max-len
+      .pipe(
+        through2(function(file, enc, callback) {
+          // remove empty files that leads error in svgSprite
+          callback(null, file.stat && file.stat.size ? file : null);
+        })
+      )
+      .pipe(svgSprite(svgSpriteConfig))
+      .pipe(gulp.dest(config.svgSprites.dist))
+  );
+});
 
-gulp.task('images:optimize', function () {
-  return gulp.src(config.img.src)
-    .pipe(plumber({
-      errorHandler: function (error) {
-        console.log(error);
-        this.emit('end');
-      }
-    }))
+gulp.task('images:optimize', function() {
+  return gulp
+    .src(config.img.src)
+    .pipe(
+      plumber({
+        errorHandler: function(error) {
+          console.log(error);
+          this.emit('end');
+        }
+      })
+    )
     .pipe(imagemin())
-    .pipe(gulp.dest(config.img.dist))
-})
+    .pipe(gulp.dest(config.img.dist));
+});
 
-gulp.task('serve', function () {
+gulp.task('serve', function() {
   if (!serverStarted) {
     serverStarted = true;
 
@@ -170,15 +197,16 @@ gulp.task('serve', function () {
       notify: false
     });
   }
-})
-gulp.task('webpack', function (callback) {
+});
+gulp.task('webpack', function(callback) {
   if (config.isDevelopment) {
     webpackConfig.watch = true;
   } else {
     webpackConfig.watch = false;
   }
   // eslint-disable-next-line max-len, no-unused-vars
-  const webpackInstance = webpack(webpackConfig, function (err, stats) { // for some reason we need here callback...
+  const webpackInstance = webpack(webpackConfig, function(err, stats) {
+    // for some reason we need here callback...
     if (err) {
       log.error(err);
       if (err.details) {
@@ -188,36 +216,39 @@ gulp.task('webpack', function (callback) {
     }
     // const info = stats.toJson();
     if (stats.hasErrors() || stats.hasWarnings()) {
-      log(stats.toString({
-        errorDetails: true,
-        warnings: true}))
+      log(
+        stats.toString({
+          errorDetails: true,
+          warnings: true
+        })
+      );
     }
     callback();
-  })
+  });
   if (config.isDevelopment) {
-    webpackInstance.compiler.plugin('done', function () {
-      bs.reload()
+    webpackInstance.compiler.plugin('done', function() {
+      bs.reload();
     });
   }
-})
+});
 
-gulp.task('watch', function () {
-  gulp.watch(config.html.watch, gulp.series('html'));// build and reload html
+gulp.task('watch', function() {
+  gulp.watch(config.html.watch, gulp.series('html')); // build and reload html
   gulp.watch(config.fonts.watch, gulp.series('fonts'));
-  gulp.watch(config.css.watch, gulp.series('css'));// build and reload css
-  gulp.watch(config.img.watch, gulp.series('images:copy'));// copy images
-  gulp.watch(config.svgSprites.watch, gulp.series('images:svg'));// create svg sprite
-})
+  gulp.watch(config.css.watch, gulp.series('css')); // build and reload css
+  gulp.watch(config.img.watch, gulp.series('images:copy')); // copy images
+  gulp.watch(config.svgSprites.watch, gulp.series('images:svg')); // create svg sprite
+});
 
-gulp.task('setProduction', function (cb) {
+gulp.task('setProduction', function(cb) {
   // eslint-disable-next-line global-require
   config = require('./project.config.js');
   // set production mode
   process.env.NODE_ENV = 'production';
   // clear cache
-  delete require.cache[require.resolve('./project.config.js')]
-  delete require.cache[require.resolve('./webpack.config.js')]
-  delete require.cache[require.resolve('./postcss.config.js')]
+  delete require.cache[require.resolve('./project.config.js')];
+  delete require.cache[require.resolve('./webpack.config.js')];
+  delete require.cache[require.resolve('./postcss.config.js')];
   // set new configs for production mode
   // eslint-disable-next-line global-require
   config = require('./project.config.js');
@@ -227,10 +258,40 @@ gulp.task('setProduction', function (cb) {
   postcssConfig = require('./postcss.config.js');
 
   cb();
-})
+});
 
-gulp.task('dev', gulp.series('clean', gulp.parallel('html', 'fonts', 'css', 'webpack', 'images:copy', 'images:svg', 'copy'), gulp.parallel('serve', 'watch')))
+gulp.task(
+  'dev',
+  gulp.series(
+    'clean',
+    gulp.parallel(
+      'html',
+      'fonts',
+      'css',
+      'webpack',
+      'images:copy',
+      'images:svg',
+      'copy'
+    ),
+    gulp.parallel('serve', 'watch')
+  )
+);
 
-gulp.task('build', gulp.series('clean', 'setProduction', gulp.parallel('html', 'fonts', 'css', 'webpack', 'images:optimize', 'images:svg', 'copy')));
+gulp.task(
+  'build',
+  gulp.series(
+    'clean',
+    'setProduction',
+    gulp.parallel(
+      'html',
+      'fonts',
+      'css',
+      'webpack',
+      'images:optimize',
+      'images:svg',
+      'copy'
+    )
+  )
+);
 
-gulp.task('default', gulp.series('dev'))
+gulp.task('default', gulp.series('dev'));

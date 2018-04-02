@@ -100,8 +100,8 @@ h6 {
   margin: 0;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
+input[type='radio'],
+input[type='checkbox'] {
   vertical-align: baseline;
   margin-right: 3px;
 }
@@ -138,7 +138,7 @@ input:-ms-input-placeholder {
   text-overflow: ellipsis;
 }
 
-input[type="number"] {
+input[type='number'] {
   width: auto; /* Firefox 36+ */
 }
 
@@ -161,7 +161,7 @@ input[type="number"] {
  * might still respond to pointer events.
  */
 
-[tabindex="-1"]:focus {
+[tabindex='-1']:focus {
   outline: none !important;
 }
 
@@ -170,7 +170,7 @@ input[type="number"] {
 Fixes "clickability" issue (and more generally, the firing of events such as focus as well)
 for traditionally non-focusable elements with role="button"
 see https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile */
-[role="button"] {
+[role='button'] {
   cursor: pointer;
 }
 
