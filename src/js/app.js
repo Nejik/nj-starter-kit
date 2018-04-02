@@ -1,5 +1,5 @@
-'use strict';
+import {vendor} from 'vendor/vendor';
 
-import 'vendor/vendor.js';
-
-(function() {})();
+(function() {
+  vendor();
+})();

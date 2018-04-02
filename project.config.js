@@ -59,9 +59,11 @@ const config = {
     concat: 'icons.svg',
     dist: root.resolve(distString + '/img'),
     watch: 'src/img/sprites/svg/**/*.svg'
+  },
+  // js config lives in webpack.config.js file
+  js: {
+    dialect: 'babel'// typescript || babel
   }
-
-  // js config in webpack.config.js file
 };
 
 module.exports = config;

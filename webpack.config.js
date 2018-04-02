@@ -1,8 +1,7 @@
 const path = require('path');
 const config = require('./project.config.js');
 
-module.exports = {
-  entry: './src/js/app.js',
+const webpackConfig = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, config.dist)
@@ -18,14 +17,29 @@ module.exports = {
     ]
   },
   module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
-      }
-    ]
+    rules: []
   }
 };
+if (config.js.dialect === 'typescript') {
+  webpackConfig.entry = './src/js/app.ts';
+  webpackConfig.module.rules.push(
+    {
+      test: /\.js|\.tsx?$/,
+      // use: 'ts-loader', ts-loader VERY very slow with allowJs option
+      use: 'awesome-typescript-loader',
+      exclude: /node_modules/
+    }
+  )
+} else {
+  webpackConfig.entry = './src/js/app.js';
+  webpackConfig.module.rules.push(
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader'
+      }
+    }
+  )
+}
+module.exports = webpackConfig;
