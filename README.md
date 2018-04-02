@@ -78,8 +78,11 @@ Also you can use some other constructions like (more in documentation: [EJS](htt
 ```
 ## CSS
 [PostCSS](https://github.com/postcss/postcss) used for building CSS
+
 ## JS
-[Babel](https://github.com/babel/babel) and [Webpack](https://github.com/webpack/webpack) used for building JavaScript
+[Webpack](https://github.com/webpack/webpack) used for building JavaScript.
+We supports both: [Babel](https://github.com/babel/babel) and [Typescript](http://www.typescriptlang.org/) compilation. Mode can be changed in `project.config.js` via `js.dialect` option.
+By default Typescript is off.
 
 ## Images
 
