@@ -36,7 +36,7 @@ const config = {
     src: ['src/css/*.css'],
     dist: root.resolve(distString + '/css'),
     dir: root.resolve('src/css'),
-    watch: 'src/css/**/*.css'
+    watch: 'src/**/*.css'
   },
 
   fonts: {
